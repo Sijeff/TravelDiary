@@ -1,0 +1,26 @@
+AIzaSyBreoQlpyGMcRteGhBXkHnZrmv8F8QhRC8
+
+i kod:
+https://maps.googleapis.com/maps/api/place/queryautocomplete/output?parameters
+https://maps.googleapis.com/maps/api/place/autocomplete/output?parameters
+https://maps.googleapis.com/maps/api/place/queryautocomplete/json?key=YOUR_API_KEY&language=fr&input=pizza+near%20par
+
+Info hittas på dessa länkar:
+https://developers.google.com/places/web-service/query
+https://developers.google.com/maps/web-services/overview#ParsingJSON
+
+
+https://developers.google.com/maps/documentation/javascript/
+
+
+
+
+
+place autocomplete:
+https://maps.googleapis.com/maps/api/place/autocomplete/json?input=Vict&types=(cities)&key=AIzaSyBreoQlpyGMcRteGhBXkHnZrmv8F8QhRC8
+https://developers.google.com/maps/web-services/overview#ParsingJSON
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBreoQlpyGMcRteGhBXkHnZrmv8F8QhRC8&libraries=places"></script>
+
+https://developers.google.com/maps/documentation/javascript/places-autocomplete
+
