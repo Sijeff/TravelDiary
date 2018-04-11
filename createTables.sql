@@ -1,6 +1,6 @@
 USE Academy_Projekt5;
 
-
+DROP TABLE locations, journeyParts,journeys,users   
 
 CREATE TABLE users (
 	userID int IDENTITY(1,1),
@@ -30,6 +30,8 @@ CREATE TABLE journeyParts (
 	journey_ID int not null,
 	title nvarchar(80) not null,
 	text nvarchar(2000) not null,
+	CONSTRAINT FK_JourneysJourneyPart FOREIGN KEY (journey_ID)
+    REFERENCES journeys(journeyID),
 	CONSTRAINT PK_journeyPartID PRIMARY KEY (journeyPartID)
 );
 
@@ -38,7 +40,7 @@ CREATE TABLE locations (
 	placeName nvarchar(80) not null,
 	country nvarchar(80) not null,
 	journeyParts_id int not null,
-	CONSTRAINT FK_JourneyLocation FOREIGN KEY (journeyParts_id)
+	CONSTRAINT FK_JourneyPartsLocation FOREIGN KEY (journeyParts_id)
     REFERENCES journeyParts(journeyPartID),
 	CONSTRAINT PK_locationID PRIMARY KEY (locationID)
 );
