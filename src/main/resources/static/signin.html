@@ -8,6 +8,7 @@
     <title>Travello</title>
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/signin.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -15,36 +16,36 @@
 
 
     <header>
-        <div class="collapse bg-dark" id="navbarHeader">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-4 py-4">
-                        <ul class="list-unstyled">
-                            <li><a href="signin.html" class="text-white">Sign in</a></li>
-                            <li><a href="journeyform.html" class="text-white">+ Add journey</a></li>
-                            <li><a href="#" class="text-white">Contact</a></li>
-                        </ul>
+            <div class="collapse bg-light" id="navbarHeader">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-4 py-4">
+                                <ul class="list-unstyled">
+                                    <li><a href="signin.html" class="text-black">Sign in</a></li>
+                                    <li><a href="journeyform.html" class="text-black">+ Add journey</a></li>
+                                    <li><a href="#" class="text-black">Contact</a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="navbar navbar-dark bg-dark box-shadow">
-            <div class="container d-flex justify-content-between">
-                <a href="index.html" class="navbar-brand d-flex align-items-center">
-                    <img src="TravelloLogo.png" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
-                    <strong>Travello</strong>
-                </a>
-
-                <form class="form-inline mt-2 mt-md-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                <div class="navbar navbar-light bg-light box-shadow">
+                    <div class="container d-flex justify-content-between">
+                        <a href="index.html" class="navbar-brand d-flex align-items-center">
+                            <img src="TravelloLogo.png" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                            <strong>Travello</strong>
+                        </a>
+        
+                        <form class="form-inline mt-2 mt-md-0">
+                            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search">Search</button>
+                        </form>
+        
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
                                               <span class="navbar-toggler-icon"></span>
                                             </button>
-            </div>
-        </div>
+                    </div>
+                </div>
     </header>
 
 
@@ -56,7 +57,7 @@
             <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
             <label for="inputPassword" class="sr-only">Password</label>
             <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" id="signin">Sign in</button>
         </form>
     </div>
 

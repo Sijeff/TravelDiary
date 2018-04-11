@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 @Component
 public class JdbcTravelloRepository implements TravelloRepository {
@@ -19,13 +20,14 @@ public class JdbcTravelloRepository implements TravelloRepository {
 
 
     @Override
-    public void addUser(String name, String email, String password, Date birthday) {
+    public void addUser(String name, String email, String password, Date birthday, LocalDate regDate) {
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("INSERT INTO users(name, email, password, birthday) VALUES (?,?,?,?) ")) {
+             PreparedStatement ps = conn.prepareStatement("INSERT INTO users(name, email, password, birthday,registrationDate) VALUES (?,?,?,?,?) ")) {
             ps.setString(1, name);
             ps.setString(2, email);
             ps.setString(3, password);
             ps.setDate(4, birthday);
+            ps.setDate(5,Date.valueOf(regDate));
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new TravelloRepositoryException(e);
