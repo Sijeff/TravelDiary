@@ -3,16 +3,18 @@ package com.example.demo.Domain;
 import java.sql.Date;
 
 public class User {
+    private int userID;
     private String name;
     private String email;
     private String password;
-    private Date birthDay;
+    private Date birthday;
 
-    public User(String name, String email, String password, Date birthDay) {
+    public User(String name, String email, String password, Date birthday, int userID) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.birthDay = birthDay;
+        this.birthday = birthday;
+        this.userID=userID;
     }
 
     public String getName() {
@@ -37,5 +39,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public Date getBirthday() {
+        return birthday;
     }
 }
