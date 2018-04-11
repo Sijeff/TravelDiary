@@ -5,10 +5,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class JourneyController {
+public class TravelloController {
 
     @GetMapping("/journeys/")
     public ModelAndView listJourneys() {
         return null;
     }
+
+
 }
