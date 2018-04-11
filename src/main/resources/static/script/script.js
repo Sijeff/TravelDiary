@@ -16,6 +16,8 @@ function SQLinfon() {
     Start date: ${inputStartDate.value}
     End date: ${inputEndDate.value}
     Text: ${inputComment.value}
+    lat: ${componentForm["lat"]}
+    lng: ${componentForm["lng"]}
     `;
 }
 
@@ -34,15 +36,17 @@ var placeSearch, autocomplete;
 var componentForm = {
     locality: 'long_name',
     country: 'long_name',
+    lat: 'lat',
+    lng: 'lng'
 };
 
 var opt = {
     types: ['geocode']
 };
 
+
 var options = {
-    bounds: defaultBounds,
-    types: ['(cities)'],
+    types: ['(cities)']
 };
 
 function initAutocomplete() {
@@ -58,6 +62,15 @@ function initAutocomplete() {
 function fillInAddress() {
     // Get the place details from the autocomplete object.
     var place = autocomplete.getPlace();
+    var place = autocomplete.getPlace();
+    // get lat
+    var lat = place.geometry.location.lat();
+    // get lng
+    var lng = place.geometry.location.lng();
+
+
+    componentForm["lat"] = lat;
+    componentForm["lng"] = lng;
 
     for (var component in componentForm) {
         document.getElementById(component).value = '';
