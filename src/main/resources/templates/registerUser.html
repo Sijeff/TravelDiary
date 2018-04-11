@@ -1,24 +1,41 @@
 <!DOCTYPE html>
 <html xmlns:th="http://w3.org/1999/xhtml" lang="en">
+
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <link rel="stylesheet" href="./css/style.css"/>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/journeyform.css"/>
+    <link rel="stylesheet" href="./css/style.css" />
     <title>Travello</title>
 </head>
+
 <body>
-    <span th:text="${invalidInput}"></span>
-    <form action="#" method="post" id="regForm"> <!-- Ta bort inline css-->
-        Username:
-        <input type="text" name="name" th:value="${enteredName}" style="display:block"/>
-        Email:
-        <input type="email" name="email" th:value="${enteredEmail}" style="display:block"/>
-        Password:
-        <input type="password" name="password" style="display:block"/>
-        Enter birthdate:
-        <input type="date" name="birthday" th:value="${enteredDate}" style="display:block"/>
-        <input type="submit" style="display:block"/>
-    </form>
+    <div class="content">
+        <span th:text="${invalidInput}"></span>
+        <form action="#" method="post" id="regForm">
+            <div class="form-group">
+                <div class="form-group col-md-6">
+                    <label for="inputUserName">Username:</label>
+                    <input type="text" name="name" th:value="${enteredName}" required="required" placeholder="Write your username here" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputEmail">Email:</label>
+                    <input type="email" name="email" th:value="${enteredEmail}" required="required"/>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword">Password:</label>
+                    <input type="password" name="password" required="required"/>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputBirthdate"> Enter birthdate:</label>
+                    <input type="date" name="birthday" th:value="${enteredDate}" required="required"/>
+                </div>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
 </body>
+
 </html>
