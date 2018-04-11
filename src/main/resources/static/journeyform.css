@@ -1,0 +1,17 @@
+.content {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    resize: both;
+    overflow: auto;
+}
+
+form {
+    width: 80%;
+    padding: 20px;
+    resize: both;
+    overflow: auto;
+}
