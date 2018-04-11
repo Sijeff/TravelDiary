@@ -8,15 +8,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Calendar;
+
 
 @Controller
 public class TravelloController {
 
     @Autowired
     private TravelloRepository travelloRepository;
+
+    @GetMapping("/")
+    public ModelAndView index() {
+        return new ModelAndView("index");
+    }
 
     @GetMapping("/journeys/")
     public ModelAndView listJourneys() {
@@ -34,5 +40,22 @@ public class TravelloController {
         travelloRepository.addUser(name,email,password,birthday,regDate);
 
         return new ModelAndView("error");
+    }
+
+    @PostMapping("signin")
+    public ModelAndView login(HttpSession session, @RequestParam String username, @RequestParam String password) {
+        if (travelloRepository.verifyUser(username, password)) {
+            session.setAttribute("user", username);
+            return new ModelAndView("index").addObject("user", username);
+        } else {
+            return new ModelAndView("signin");
+        }
+    }
+
+    @PostMapping("logout")
+    public String logout (HttpSession session) {
+        session.removeAttribute("user");
+
+        return "index";
     }
 }

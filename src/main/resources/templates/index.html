@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Travello</title>
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link href="css/album.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link href="/css/album.css" rel="stylesheet">
 </head>
 
 <body>
@@ -17,8 +17,15 @@
                 <div class="row">
                     <div class="col-sm-4 py-4">
                         <ul class="list-unstyled">
-                            <li><a href="signin.html" class="text-white">Sign in</a></li>
-                            <li><a href="journeyform.html" class="text-white">+ Add journey</a></li>
+                            <div th:if="${session.user}">
+                                <a href="logout" class="text-white">Log out </a>
+                                <h3 text="'Welcome ' + ${session.user}" class="text-white"></h3>
+                            </div>
+                            <div th:if="${session.user==null}">
+                                <li><a href="/signin.html" class="text-white">Sign in</a></li>
+                                <li><a href="registerUser.html" class="text-white">Register</a></li>
+                            </div>
+                            <li><a href="/journeyform.html" class="text-white">+ Add journey</a></li>
                             <li><a href="#" class="text-white">Contact</a></li>
                         </ul>
                     </div>
@@ -28,7 +35,7 @@
         <div class="navbar navbar-dark bg-dark box-shadow">
             <div class="container d-flex justify-content-between">
                 <a href="index.html" class="navbar-brand d-flex align-items-center">
-                    <img src="TravelloLogo.png" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                    <img src="/TravelloLogo.png" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
                     <strong>Travello</strong>
                 </a>
 
@@ -210,13 +217,13 @@
     <!-- Bootstrap core JavaScript
               ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="script/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="/script/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script>
-        window.jQuery || document.write('<script src="script/jquery-slim.min.js"><\/script>')
+        window.jQuery || document.write('<script src="/script/jquery-slim.min.js"><\/script>')
     </script>
-    <script src="script/popper.min.js"></script>
-    <script src="script/bootstrap.min.js"></script>
-    <script src="script/holder.min.js"></script>
+    <script src="/script/popper.min.js"></script>
+    <script src="/script/bootstrap.min.js"></script>
+    <script src="/script/holder.min.js"></script>
 </body>
 
 </html>
