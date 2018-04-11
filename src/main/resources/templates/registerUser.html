@@ -4,18 +4,20 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <link rel="stylesheet" href="./css/style.css">
     <title>Travello</title>
 </head>
 <body>
+    <span th:text="${invalidInput}"></span>
     <form action="#" method="post" id="regForm"> <!-- Ta bort inline css-->
         Username:
-        <input type="text" name="name" style="display:block"/>
+        <input type="text" name="name" th:value="${enteredName}" style="display:block"/>
         Email:
-        <input type="email" name="email" style="display:block"/>
+        <input type="email" name="email" th:value="${enteredEmail}" style="display:block"/>
         Password:
         <input type="password" name="password" style="display:block"/>
         Enter birthdate:
-        <input type="date" name="birthday" style="display:block"/>
+        <input type="date" name="birthday" th:value="${enteredDate}" style="display:block"/>
         <input type="submit" style="display:block"/>
     </form>
 </body>

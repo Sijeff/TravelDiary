@@ -18,11 +18,6 @@ public class TravelloController {
     @Autowired
     private TravelloRepository travelloRepository;
 
-    @GetMapping("/journeys/")
-    public ModelAndView listJourneys() {
-        return null;
-    }
-
     @GetMapping("registerUser")
     public ModelAndView gotoRegister() {
         return new ModelAndView("registerUser");
@@ -30,9 +25,26 @@ public class TravelloController {
 
     @PostMapping("/registerUser")
     public ModelAndView regUser(@RequestParam String name, @RequestParam String email, @RequestParam String password, @RequestParam Date birthday) {
-        LocalDate regDate = LocalDate.now();
-        travelloRepository.addUser(name,email,password,birthday,regDate);
+        if (!email.toUpperCase().matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$")){
+            return new ModelAndView("registerUser")
+                    .addObject("invalidInput", "Invalid email. Please try again.")
+                    .addObject("enteredName",name)
+                    .addObject("enteredDate", birthday);
 
+        }else if(!travelloRepository.checkUniqueUsername(name)){
+            return new ModelAndView("registerUser")
+                    .addObject("invalidInput", "Username taken. Please try again.")
+                    .addObject("enteredEmail",email)
+                    .addObject("enteredDate", birthday);
+        }else if(travelloRepository.checkDuplicateEmail(email)){
+            return new ModelAndView("registerUser")
+                    .addObject("invalidInput", "This email is already registered. Please try again.")
+                    .addObject("enteredName",name)
+                    .addObject("enteredDate", birthday);
+        }else {
+            LocalDate regDate = LocalDate.now();
+            travelloRepository.addUser(name, email, password, birthday, regDate);
+        }
         return new ModelAndView("error");
     }
 }
