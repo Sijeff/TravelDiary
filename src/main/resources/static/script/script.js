@@ -1,3 +1,44 @@
+var submitBtn = document.getElementById("SubmitKnappen");
+submitBtn.addEventListener("click", SQLinfon);
+
+var inputTitle = document.getElementById("title");
+var inputCity = document.getElementById("locality");
+var inputCountry = document.getElementById("country");
+var inputComment = document.getElementById("comment");
+var inputStartDate = document.getElementById("startdate");
+var inputEndDate = document.getElementById("enddate");
+
+function SQLinfon() {
+    inputComment.innerHTML = `PostMapping / INSERT INTO information:
+    Title: ${inputTitle.value}
+    City: ${inputCity.value}
+    Country: ${inputCountry.value}
+    Start date: ${inputStartDate.value}
+    End date: ${inputEndDate.value}
+    Text: ${inputComment.value}
+    `;
+}
+
+var latBtn = document.getElementById("lat");
+latBtn.addEventListener("click", lat);
+
+function lat() {
+    inputComment.innerHTML = 'We had a fantastic week';
+    inputTitle.value = 'Fantastic week in Norway';
+    inputStartDate.value = '2018-02-01';
+    inputEndDate.value = '2018-02-09';
+}
+
+
+var placeSearch, autocomplete;
+var componentForm = {
+    locality: 'long_name',
+    country: 'long_name',
+};
+
+
+
+
 function initAutocomplete() {
     // Create the autocomplete object, restricting the search to geographical
     // location types.
@@ -7,10 +48,9 @@ function initAutocomplete() {
             types: ['geocode']
         });
 
-    // When the user selects an address from the dropdown, populate the address
-    // fields in the form.
     autocomplete.addListener('place_changed', fillInAddress);
 }
+
 function fillInAddress() {
     // Get the place details from the autocomplete object.
     var place = autocomplete.getPlace();
