@@ -72,6 +72,7 @@ public class JdbcTravelloRepository implements TravelloRepository {
         }
     }
 
+
     @Override
     public boolean verifyUser(String username, String password) {
         try (Connection conn = dataSource.getConnection();
@@ -83,11 +84,48 @@ public class JdbcTravelloRepository implements TravelloRepository {
                     return true;
                 }
             }
-            } catch (SQLException e) {
-                throw new TravelloRepositoryException(e);
+        } catch (SQLException e) {
+            throw new TravelloRepositoryException(e);
+        }
+        return false;
+    }
+
+
+    @Override
+    public boolean checkUniqueUsername(String username) {
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT name FROM USERS WHERE name = ?")) {
+            ps.setString(1, username);
+            try (ResultSet rs = ps.executeQuery()) {
+
+                if (rs.next())
+                    return false;
             }
-            return false;
+
+        } catch (SQLException e) {
+            throw new TravelloRepositoryException(e);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean checkDuplicateEmail(String email) {
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT email FROM USERS WHERE email = ?")) {
+            ps.setString(1, email);
+            try (ResultSet rs = ps.executeQuery()) {
+
+                if (rs.next())
+                    return true;
+            }
+
+        } catch (SQLException e) {
+            throw new TravelloRepositoryException(e);
+        }
+        return false;
+
     }
 }
+
 
 

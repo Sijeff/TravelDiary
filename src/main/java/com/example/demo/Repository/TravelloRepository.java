@@ -10,4 +10,7 @@ public interface TravelloRepository {
     void addJourneyPart(String title, String text, java.sql.Date startDate, java.sql.Date endDate, int journey_ID);
     void addLocation(String placeName, String country, int journeyParts_id);
     boolean verifyUser(String username, String password);
+    boolean checkUniqueUsername(String username);
+    boolean checkDuplicateEmail(String email);
+
 }

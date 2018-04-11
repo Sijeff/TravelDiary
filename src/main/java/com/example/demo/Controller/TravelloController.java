@@ -24,10 +24,7 @@ public class TravelloController {
         return new ModelAndView("index");
     }
 
-    @GetMapping("/journeys/")
-    public ModelAndView listJourneys() {
-        return null;
-    }
+
 
     @GetMapping("registerUser")
     public ModelAndView gotoRegister() {
@@ -36,9 +33,36 @@ public class TravelloController {
 
     @PostMapping("/registerUser")
     public ModelAndView regUser(@RequestParam String name, @RequestParam String email, @RequestParam String password, @RequestParam Date birthday) {
-        LocalDate regDate = LocalDate.now();
-        travelloRepository.addUser(name,email,password,birthday,regDate);
-
+        if (!email.toUpperCase().matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$")){
+            return new ModelAndView("registerUser")
+                    .addObject("invalidInput", "Invalid email. Please try again.")
+                    .addObject("enteredName",name)
+                    .addObject("enteredDate", birthday);
+        }else if(birthday.toLocalDate().compareTo(LocalDate.now())>= 0){
+            return new ModelAndView("registerUser")
+                    .addObject("invalidInput", "Birthday is invalid. Please try again.")
+                    .addObject("enteredEmail",email)
+                    .addObject("enteredName",name);
+        }else if(!travelloRepository.checkUniqueUsername(name) || name.equals("")){
+            return new ModelAndView("registerUser")
+                    .addObject("invalidInput", "Username taken or invalid. Please try again.")
+                    .addObject("enteredEmail",email)
+                    .addObject("enteredDate", birthday);
+        }else if(password.equals("")){
+            return new ModelAndView("registerUser")
+                    .addObject("invalidInput", "Please enter a password.")
+                    .addObject("enteredName",name)
+                    .addObject("enteredEmail",email)
+                    .addObject("enteredDate", birthday);
+        }else if(travelloRepository.checkDuplicateEmail(email)){
+            return new ModelAndView("registerUser")
+                    .addObject("invalidInput", "This email is already registered. Please try again.")
+                    .addObject("enteredName",name)
+                    .addObject("enteredDate", birthday);
+        }else {
+            LocalDate regDate = LocalDate.now();
+            travelloRepository.addUser(name, email, password, birthday, regDate);
+        }
         return new ModelAndView("error");
     }
 

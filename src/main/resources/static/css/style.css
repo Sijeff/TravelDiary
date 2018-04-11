@@ -1,4 +1,12 @@
-.topnav {
+body {
+    background-color: #FFEBF5;
+}
+
+h1 {
+    text-shadow: 1px 1px rgb(216, 211, 211);
+}
+
+  .topnav {
     overflow: hidden;
     background-color: #CC5F96;
     display: flex;
@@ -19,20 +27,13 @@
     color: black;
 }
 
-body {
-    background-color :#CCBCC4;
+#jumbotron, #album {
+    background-color: #FFEBF5;
+    color: #CC5F96;
 }
 
-
-h1 {
-    text-shadow: 1px 1px rgb(216, 211, 211);
+#search, #signin {
+    background-color: #FFEBF5;
+    color: #CC5F96;
 }
-
-input:invalid {
-    border: 2px dashed red;
-  }
-  
-  input:valid {
-    border: 2px solid black;
-  }
 
