@@ -1,4 +1,28 @@
-.topnav {
+body {
+    background-color :#FFB1D9;
+}
+
+#container {
+    background-color: #CC5F96;
+}
+
+footer {
+    background-color: #CC5F96;
+}
+
+h1 {
+    text-shadow: 1px 1px rgb(216, 211, 211);
+}
+
+input:invalid {
+    border: 2px dashed red;
+  }
+  
+  input:valid {
+    border: 2px solid black;
+  }
+
+  .topnav {
     overflow: hidden;
     background-color: #CC5F96;
     display: flex;
@@ -19,20 +43,15 @@
     color: black;
 }
 
-body {
-    background-color :#CCBCC4;
+#navbarHeader {
+    background-color: #CC5F96;
 }
 
-
-h1 {
-    text-shadow: 1px 1px rgb(216, 211, 211);
+#search, #signin {
+    background-color: #FFEBF5;
+    color: #CC5F96;
 }
 
-input:invalid {
-    border: 2px dashed red;
-  }
-  
-  input:valid {
-    border: 2px solid black;
-  }
-
+.list-unstyled > a {
+    color: #CC5F96;
+}
