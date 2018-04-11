@@ -21,7 +21,7 @@ public class JdbcTravelloRepository implements TravelloRepository {
     @Override
     public void addUser(String name, String email, String password, Date birthday) {
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("INSERT INTO users(name, email, password, birthday) VALUES (?,?,?,?) ", new String[] {"id"})) {
+             PreparedStatement ps = conn.prepareStatement("INSERT INTO users(name, email, password, birthday) VALUES (?,?,?,?) ")) {
             ps.setString(1, name);
             ps.setString(2, email);
             ps.setString(3, password);
@@ -34,16 +34,40 @@ public class JdbcTravelloRepository implements TravelloRepository {
 
     @Override
     public void addJourney(String title, User user) {
-
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("INSERT INTO journeys(title, user_ID) VALUES (?,?) ")) {
+            ps.setString(1, title);
+            ps.setInt(2, user.getUserID());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new TravelloRepositoryException(e);
+        }
     }
 
     @Override
-    public void addJourneyPart(String title, String text, Date startDate, Date endDate) {
-
+    public void addJourneyPart(String title, String text, Date startDate, Date endDate, int journey_ID) {
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("INSERT INTO users(title, text, startDate, endDate, journey_ID) VALUES (?,?,?,?,?) ")) {
+            ps.setString(1, title);
+            ps.setString(2, text);
+            ps.setDate(3, startDate);
+            ps.setDate(4, endDate);
+            ps.setInt(5, journey_ID);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new TravelloRepositoryException(e);
+        }
     }
 
     @Override
-    public void addLocation(String placeName, String country) {
-
+    public void addLocation(String placeName, String country, int journeyParts_id) {
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("INSERT INTO journeys(placeName, country, journeyParts_id) VALUES (?,?,?) ")) {
+            ps.setString(1, placeName);
+            ps.setString(2, country);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new TravelloRepositoryException(e);
+        }
     }
 }
