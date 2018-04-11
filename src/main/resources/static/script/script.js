@@ -36,15 +36,21 @@ var componentForm = {
     country: 'long_name',
 };
 
+var opt = {
+    types: ['geocode']
+};
+
+var options = {
+    bounds: defaultBounds,
+    types: ['(cities)'],
+};
 
 function initAutocomplete() {
     // Create the autocomplete object, restricting the search to geographical
     // location types.
     autocomplete = new google.maps.places.Autocomplete(
         /** @type {!HTMLInputElement} */
-        (document.getElementById('location')), {
-            types: ['geocode']
-        });
+        (document.getElementById('location')), options);
 
     autocomplete.addListener('place_changed', fillInAddress);
 }
