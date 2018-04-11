@@ -1,13 +1,3 @@
-var submitBtn = document.getElementById("SubmitKnappen");
-submitBtn.addEventListener("click", SQLinfon);
-
-var inputTitle = document.getElementById("title");
-var inputCity = document.getElementById("locality");
-var inputCountry = document.getElementById("country");
-var inputComment = document.getElementById("comment");
-var inputStartDate = document.getElementById("startdate");
-var inputEndDate = document.getElementById("enddate");
-
 function SQLinfon() {
     inputComment.innerHTML = `PostMapping / INSERT INTO information:
     Title: ${inputTitle.value}
@@ -16,12 +6,25 @@ function SQLinfon() {
     Start date: ${inputStartDate.value}
     End date: ${inputEndDate.value}
     Text: ${inputComment.value}
-    lat: ${componentForm["lat"]}
-    lng: ${componentForm["lng"]}
+    lat: ${inputLat.value}
+    lng: ${inputLng.value}
     `;
 }
 
-var latBtn = document.getElementById("lat");
+var inputTitle = document.getElementById("title");
+var inputCity = document.getElementById("locality");
+var inputCountry = document.getElementById("country");
+var inputComment = document.getElementById("comment");
+var inputStartDate = document.getElementById("startdate");
+var inputEndDate = document.getElementById("enddate");
+
+var inputLat = document.getElementById("lat");
+var inputLng = document.getElementById("lng");
+
+var submitBtn = document.getElementById("SubmitKnappen");
+submitBtn.addEventListener("click", SQLinfon);
+
+var latBtn = document.getElementById("late");
 latBtn.addEventListener("click", lat);
 
 function lat() {
@@ -31,54 +34,30 @@ function lat() {
     inputEndDate.value = '2018-02-09';
 }
 
-
 var placeSearch, autocomplete;
+
 var componentForm = {
     locality: 'long_name',
-    country: 'long_name',
-    lat: 'lat',
-    lng: 'lng'
+    country: 'long_name'
 };
-
-var opt = {
-    types: ['geocode']
-};
-
 
 var options = {
     types: ['(cities)']
 };
 
 function initAutocomplete() {
-    // Create the autocomplete object, restricting the search to geographical
-    // location types.
-    autocomplete = new google.maps.places.Autocomplete(
-        /** @type {!HTMLInputElement} */
-        (document.getElementById('location')), options);
-
+    autocomplete = new google.maps.places.Autocomplete((document.getElementById('location')), options);
     autocomplete.addListener('place_changed', fillInAddress);
 }
 
 function fillInAddress() {
-    // Get the place details from the autocomplete object.
     var place = autocomplete.getPlace();
-    var place = autocomplete.getPlace();
-    // get lat
-    var lat = place.geometry.location.lat();
-    // get lng
-    var lng = place.geometry.location.lng();
-
-
-    componentForm["lat"] = lat;
-    componentForm["lng"] = lng;
 
     for (var component in componentForm) {
         document.getElementById(component).value = '';
         document.getElementById(component).disabled = false;
     }
 
-    // Get each component of the address from the place details
-    // and fill the corresponding field on the form.
     for (var i = 0; i < place.address_components.length; i++) {
         var addressType = place.address_components[i].types[0];
         if (componentForm[addressType]) {
@@ -86,4 +65,12 @@ function fillInAddress() {
             document.getElementById(addressType).value = val;
         }
     }
+    document.getElementById("lat").value = '';
+    document.getElementById("lat").disabled = false;
+    document.getElementById("lat").value = place.geometry.location.lat();
+
+    document.getElementById("lng").value = '';
+    document.getElementById("lng").disabled = false;
+    document.getElementById("lng").value = place.geometry.location.lng();
+
 }

@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/journeyform.css">
     <link rel="stylesheet" href="css/style.css">
-    <script src="script/script.js"></script>
-    <script src="script/script.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBreoQlpyGMcRteGhBXkHnZrmv8F8QhRC8&libraries=places&callback=initAutocomplete" async defer></script>
     <title>Travello - Share your journey!</title>
 </head>
@@ -89,21 +87,23 @@
 
 
 
-            <input class="field" id="locality" hidden disabled="true"></input>
-            <input class="field" id="country" hidden disabled="true"></input>
+            <input id="locality" disabled="true"></input>
+            <input id="country" disabled="true"></input>
+            <input id="lat" disabled="true"></input>
+            <input id="lng" disabled="true"></input>
+
 
         </form>
         <button id="SubmitKnappen">Submit</button>
-        <button id="lat">Lat</button>
-        <script>
-            window.jQuery || document.write('<script src="script/jquery-slim.min.js"><\/script>')
-        </script>
-        <script src="script/popper.min.js"></script>
-        <script src="script/bootstrap.min.js"></script>
-        <script src="script/holder.min.js"></script>
-        <script src="script/script.js"></script>
+        <button id="late">Lat</button>
     </div>
 
+
+    <script src="script/jquery-slim.min.js"></script>
+    <script src="script/popper.min.js"></script>
+    <script src="script/bootstrap.min.js"></script>
+    <script src="script/holder.min.js"></script>
+    <script src="script/script.js"></script>
 
 </body>
 
