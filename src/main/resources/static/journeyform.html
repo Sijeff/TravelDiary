@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="bootstrap.css">
-    <link rel="stylesheet" href="journeyform.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="script/script.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBreoQlpyGMcRteGhBXkHnZrmv8F8QhRC8&libraries=places&callback=initAutocomplete" async defer></script>
+    <link rel="stylesheet" href="css/journeyform.css">
     <title>Travello - Share your journey!</title>
 </head>
 
@@ -55,15 +57,9 @@
                     <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Describe your journey in a few words"
                         required>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                     <label for="exampleFormControlSelect1">Where did you travel?</label>
-                    <select class="form-control" id="exampleFormControlSelect1">
-                        <option>Stockholm</option>
-                        <option>Östersund</option>
-                        <option>Malmö</option>
-                        <option>Stenungssund</option>
-                        <option>Flen</option>
-                    </select>
+                    <input id="location" class="form-control" placeholder="Where did you travel?" type="text"></input>
                 </div>
             </div>
             <div class="form-group">
@@ -88,14 +84,14 @@
                 </div>
             </div>
         </form>
-        <script src="jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        <script src="script/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
         <script>
-            window.jQuery || document.write('<script src="jquery-slim.min.js"><\/script>')
+            window.jQuery || document.write('<script src="script/jquery-slim.min.js"><\/script>')
         </script>
-        <script src="popper.min.js"></script>
-        <script src="bootstrap.min.js"></script>
-        <script src="holder.min.js"></script>
+        <script src="script/popper.min.js"></script>
+        <script src="script/bootstrap.min.js"></script>
+        <script src="script/holder.min.js"></script>
     </div>
 </body>
 
