@@ -30,10 +30,20 @@ public class TravelloController {
                     .addObject("invalidInput", "Invalid email. Please try again.")
                     .addObject("enteredName",name)
                     .addObject("enteredDate", birthday);
-
-        }else if(!travelloRepository.checkUniqueUsername(name)){
+        }else if(birthday.toLocalDate().compareTo(LocalDate.now())>= 0){
             return new ModelAndView("registerUser")
-                    .addObject("invalidInput", "Username taken. Please try again.")
+                    .addObject("invalidInput", "Birthday is invalid. Please try again.")
+                    .addObject("enteredEmail",email)
+                    .addObject("enteredName",name);
+        }else if(!travelloRepository.checkUniqueUsername(name) || name.equals("")){
+            return new ModelAndView("registerUser")
+                    .addObject("invalidInput", "Username taken or invalid. Please try again.")
+                    .addObject("enteredEmail",email)
+                    .addObject("enteredDate", birthday);
+        }else if(password.equals("")){
+            return new ModelAndView("registerUser")
+                    .addObject("invalidInput", "Please enter a password.")
+                    .addObject("enteredName",name)
                     .addObject("enteredEmail",email)
                     .addObject("enteredDate", birthday);
         }else if(travelloRepository.checkDuplicateEmail(email)){
