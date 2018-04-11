@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class JdbcTravelloRepository implements TravelloRepository {
@@ -72,6 +74,24 @@ public class JdbcTravelloRepository implements TravelloRepository {
 
 
     @Override
+    public boolean verifyUser(String username, String password) {
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT * FROM users WHERE username = ? AND password = ?")) {
+            ps.setString(1, username);
+            ps.setString(1, password);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            throw new TravelloRepositoryException(e);
+        }
+        return false;
+    }
+
+
+    @Override
     public boolean checkUniqueUsername(String username) {
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement("SELECT name FROM USERS WHERE name = ?")) {
@@ -103,5 +123,9 @@ public class JdbcTravelloRepository implements TravelloRepository {
             throw new TravelloRepositoryException(e);
         }
         return false;
+
     }
 }
+
+
+

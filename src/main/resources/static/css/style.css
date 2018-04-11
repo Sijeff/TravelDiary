@@ -27,6 +27,10 @@ h1 {
     color: black;
 }
 
+#jumbotron, #album {
+    background-color: #FFEBF5;
+    color: #CC5F96;
+}
 
 #search, #signin {
     background-color: #FFEBF5;

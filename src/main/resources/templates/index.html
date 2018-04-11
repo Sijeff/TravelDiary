@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Travello</title>
-    <link rel="stylesheet" href="css/bootstrap.css">
+
+    <link rel="stylesheet" href="/css/bootstrap.css">
+
     <link rel="stylesheet" href="css/style.css">
+
 </head>
 
 <body>
@@ -17,7 +20,15 @@
                 <div class="row">
                     <div class="col-sm-4 py-4">
                         <ul class="list-unstyled">
-                            <li><a href="signin.html" class="text-black">Sign in</a></li>
+
+                            <div th:if="${session.user}">
+                                <a href="logout" class="text-black">Log out </a>
+                                <h3 text="'Welcome ' + ${session.user}" class="text-black"></h3>
+                            </div>
+                            <div th:if="${session.user==null}">
+                                <li><a href="/signin.html" class="text-black">Sign in</a></li>
+                                <li><a href="registerUser.html" class="text-black">Register</a></li>
+                            </div>
                             <li><a href="journeyform.html" class="text-black">+ Add journey</a></li>
                             <li><a href="#" class="text-black">Contact</a></li>
                         </ul>
@@ -28,7 +39,7 @@
         <div class="navbar navbar-light bg-light box-shadow">
             <div class="container d-flex justify-content-between">
                 <a href="index.html" class="navbar-brand d-flex align-items-center">
-                    <img src="TravelloLogo.png" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                    <img src="/TravelloLogo.png" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
                     <strong>Travello</strong>
                 </a>
 
@@ -48,7 +59,7 @@
 
     <main role="main">
 
-        <section class="jumbotron text-center">
+        <section class="jumbotron text-center" id="jumbotron">
             <div class="container">
                 <h1 class="jumbotron-heading">Welcome to Travello!</h1>
                 <p class="lead text-muted">Tell others about what you've experienced and get inspiration for your next journey</p>
@@ -59,59 +70,38 @@
             </div>
         </section>
 
-        <div class="album py-5 bg-light">
+        <div class="album py-5" id="album">
             <div class="container">
 
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card mb-4 box-shadow">
-                            <img class="card-img-top" src="https://picsum.photos/200/125/?random" alt="Card image cap">
+                            <img class="card-img-top" src="https://picsum.photos/200/125/?image=1048" alt="Card image cap">
                             <div class="card-body">
                                 <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                    </div>
-                                    <small class="text-muted">9 mins</small>
-                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="card mb-4 box-shadow">
-                            <img class="card-img-top" src="https://picsum.photos/200/125/?random" alt="Card image cap">
+                            <img class="card-img-top" src="https://picsum.photos/200/125/?image=1049" alt="Card image cap">
                             <div class="card-body">
                                 <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                    </div>
-                                    <small class="text-muted">9 mins</small>
-                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="card mb-4 box-shadow">
-                            <img class="card-img-top" src="https://picsum.photos/200/125/?random" alt="Card image cap">
+                            <img class="card-img-top" src="https://picsum.photos/200/125/?image=1040" alt="Card image cap">
                             <div class="card-body">
                                 <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                    </div>
-                                    <small class="text-muted">9 mins</small>
-                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="card mb-4 box-shadow">
-                            <img class="card-img-top" src="https://picsum.photos/200/125/?random" alt="Card image cap">
+                            <img class="card-img-top" src="https://picsum.photos/200/125/?image=1022" alt="Card image cap">
                             <div class="card-body">
                                 <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                             </div>
@@ -119,77 +109,42 @@
                     </div>
                     <div class="col-md-4">
                         <div class="card mb-4 box-shadow">
-                            <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
+                            <img class="card-img-top" src="https://picsum.photos/200/125/?image=867" alt="Card image cap">
                             <div class="card-body">
                                 <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                    </div>
-                                    <small class="text-muted">9 mins</small>
-                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="card mb-4 box-shadow">
-                            <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
+                            <img class="card-img-top" src="https://picsum.photos/200/125/?image=887" alt="Card image cap">
                             <div class="card-body">
                                 <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                    </div>
-                                    <small class="text-muted">9 mins</small>
-                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="card mb-4 box-shadow">
-                            <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
+                            <img class="card-img-top" src="https://picsum.photos/200/125/?image=946" alt="Card image cap">
                             <div class="card-body">
                                 <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                    </div>
-                                    <small class="text-muted">9 mins</small>
-                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="card mb-4 box-shadow">
-                            <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
+                            <img class="card-img-top" src="https://picsum.photos/200/125/?image=979" alt="Card image cap">
                             <div class="card-body">
                                 <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                    </div>
-                                    <small class="text-muted">9 mins</small>
-                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="card mb-4 box-shadow">
-                            <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
+                            <img class="card-img-top" src="https://picsum.photos/200/125/?image=994" alt="Card image cap">
                             <div class="card-body">
                                 <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                    </div>
-                                    <small class="text-muted">9 mins</small>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -210,13 +165,13 @@
     <!-- Bootstrap core JavaScript
               ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="script/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="/script/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script>
-        window.jQuery || document.write('<script src="script/jquery-slim.min.js"><\/script>')
+        window.jQuery || document.write('<script src="/script/jquery-slim.min.js"><\/script>')
     </script>
-    <script src="script/popper.min.js"></script>
-    <script src="script/bootstrap.min.js"></script>
-    <script src="script/holder.min.js"></script>
+    <script src="/script/popper.min.js"></script>
+    <script src="/script/bootstrap.min.js"></script>
+    <script src="/script/holder.min.js"></script>
 </body>
 
 </html>
