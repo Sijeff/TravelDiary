@@ -5,10 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 
 @Component
@@ -27,7 +24,7 @@ public class JdbcTravelloRepository implements TravelloRepository {
             ps.setString(2, email);
             ps.setString(3, password);
             ps.setDate(4, birthday);
-            ps.setDate(5,Date.valueOf(regDate));
+            ps.setDate(5, Date.valueOf(regDate));
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new TravelloRepositoryException(e);
@@ -71,5 +68,40 @@ public class JdbcTravelloRepository implements TravelloRepository {
         } catch (SQLException e) {
             throw new TravelloRepositoryException(e);
         }
+    }
+
+
+    @Override
+    public boolean checkUniqueUsername(String username) {
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT name FROM USERS WHERE name = ?")) {
+            ps.setString(1, username);
+            try (ResultSet rs = ps.executeQuery()) {
+
+                if (rs.next())
+                    return false;
+            }
+
+        } catch (SQLException e) {
+            throw new TravelloRepositoryException(e);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean checkDuplicateEmail(String email) {
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT email FROM USERS WHERE email = ?")) {
+            ps.setString(1, email);
+            try (ResultSet rs = ps.executeQuery()) {
+
+                if (rs.next())
+                    return true;
+            }
+
+        } catch (SQLException e) {
+            throw new TravelloRepositoryException(e);
+        }
+        return false;
     }
 }
