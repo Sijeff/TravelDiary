@@ -37,15 +37,26 @@ public class JdbcTravelloRepository implements TravelloRepository {
     }
 
     @Override
-    public void addJourney(String title, User user) {
+    public Journey addJourney(String title, User user) {
+        //TODO: Please refactor me! Terrible stuff
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement("INSERT INTO journeys(title, user_ID) VALUES (?,?) ")) {
             ps.setString(1, title);
             ps.setInt(2, user.getUserID());
             ps.executeUpdate();
+            try (PreparedStatement select = conn.prepareStatement("SELECT TOP 1 journeyID, title, user_ID " +
+                    "FROM journeys WHERE title = ? AND user_ID = ? ORDER BY journeyID DESC")) {
+                select.setString(1, title);
+                select.setInt(2, user.getUserID());
+                ResultSet rs = select.executeQuery();
+                if(rs.next()) {
+                    return objJourney(rs);
+                }
+            }
         } catch (SQLException e) {
             throw new TravelloRepositoryException(e);
         }
+        return null;
     }
 
     @Override
@@ -150,7 +161,7 @@ public class JdbcTravelloRepository implements TravelloRepository {
     @Override
     public List<JourneyPart> getJourneyPart(Journey journey) {
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("SELECT journeyPartID, startDate, endDate, journey_ID, " +
+             PreparedStatement ps = conn.prepareStatement("SELECT journeyPartID, location_ID, startDate, endDate, journey_ID, " +
                      "title, text FROM journeyParts WHERE journey_ID = ? ORDER BY startDate DESC")) {
             ps.setInt(1, journey.getJourneyID());
             ResultSet rs = ps.executeQuery();

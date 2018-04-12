@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface TravelloRepository {
     void addUser(String name, String email, String password, java.sql.Date birthday, LocalDate regDate);
-    void addJourney(String title, User user);
+    Journey addJourney(String title, User user);
     void addJourneyPart(String title, String text, java.sql.Date startDate, java.sql.Date endDate, int journey_ID, int location_ID);
     void addLocation(String placeName, String country, float lng, float lat);
     boolean verifyUser(String username, String password);
