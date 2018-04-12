@@ -74,6 +74,7 @@ public class TravelloController {
         Journey journey = travelloRepository.getJourney(journeyID);
         return new ModelAndView("journey")
                 .addObject("journey", journey)
+                .addObject("user", travelloRepository.getUserBy)
                 .addObject("journeyParts", travelloRepository.getJourneyPart(journey));
     }
 
