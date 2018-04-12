@@ -2,6 +2,7 @@ package com.example.demo.Repository;
 
 import com.example.demo.Domain.Journey;
 import com.example.demo.Domain.JourneyPart;
+import com.example.demo.Domain.Location;
 import com.example.demo.Domain.User;
 
 import java.time.LocalDate;
@@ -17,6 +18,7 @@ public interface TravelloRepository {
     boolean checkDuplicateEmail(String email);
     public boolean verifyLocation(String placeName, String country);
     List<JourneyPart> getJourneyPart(Journey journey);
+    List<Location> getLocations();
     List<Journey> listJourneys();
     Journey getJourney(int journeyID);
     User getUser(String username);

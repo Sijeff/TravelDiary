@@ -2,6 +2,7 @@ package com.example.demo.Repository;
 
 import com.example.demo.Domain.Journey;
 import com.example.demo.Domain.JourneyPart;
+import com.example.demo.Domain.Location;
 import com.example.demo.Domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -224,6 +225,7 @@ public class JdbcTravelloRepository implements TravelloRepository {
                 rs.getInt("user_ID"));
     }
 
+
     private User objUser(ResultSet rs) throws SQLException {
         return new User(
                 rs.getString("name"),
@@ -231,6 +233,33 @@ public class JdbcTravelloRepository implements TravelloRepository {
                 rs.getString("password"),
                 rs.getDate("birthday"),
                 rs.getInt("userID")
+        );
+    }
+
+
+
+
+    @Override
+    public List<Location> getLocations() {
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT * FROM locations")) {
+            List<Location> locationList = new ArrayList<>();
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) locationList.add(objLocations(rs));
+            return locationList;
+        } catch (SQLException e) {
+            throw new TravelloRepositoryException(e);
+        }
+    }
+
+
+    private Location objLocations(ResultSet rs) throws SQLException {
+        return new Location(
+                rs.getInt("locationID"),
+                rs.getString("placeName"),
+                rs.getString("country"),
+                rs.getFloat("lng"),
+                rs.getFloat("lat")
         );
     }
 }
