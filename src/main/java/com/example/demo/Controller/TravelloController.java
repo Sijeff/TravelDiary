@@ -58,7 +58,8 @@ public class TravelloController {
 
     @GetMapping("index2")
     public ModelAndView gotoindex2() {
-        return new ModelAndView("index2").addObject("locations", travelloRepository.getLocations());
+        return new ModelAndView("index2").addObject("locations", travelloRepository.getLocations())
+                .addObject("journeys", travelloRepository.listJourneys());
 //        return new ModelAndView("index2");
 
 //        return new ModelAndView("index");
