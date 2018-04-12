@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -77,19 +79,27 @@ public class TravelloController {
     }
 
     @PostMapping("signin")
-    public ModelAndView login(HttpSession session, @RequestParam String username, @RequestParam String password) {
+    public ModelAndView login(HttpSession session,HttpServletResponse res, @RequestParam String username, @RequestParam String password) {
         if (travelloRepository.verifyUser(username, password)) {
             session.setAttribute("user", username);
             return new ModelAndView("index").addObject("user", username);
         } else {
+            session.removeAttribute("user");
+            Cookie cookie = new Cookie("JSESSIONID", null);
+            cookie.setMaxAge(0);
+            res.addCookie(cookie);
+            session.invalidate();
             return new ModelAndView("signin");
         }
     }
 
-    @PostMapping("logout")
-    public String logout (HttpSession session) {
+    @GetMapping("logout")
+    public String logout (HttpSession session, HttpServletResponse res) {
         session.removeAttribute("user");
-
+        Cookie cookie = new Cookie("JSESSIONID", null);
+        cookie.setMaxAge(0);
+        res.addCookie(cookie);
+        session.invalidate();
         return "index";
     }
 }
