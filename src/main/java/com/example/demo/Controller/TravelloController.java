@@ -113,7 +113,8 @@ public class TravelloController {
             cookie.setMaxAge(0);
             res.addCookie(cookie);
             session.invalidate();
-            return new ModelAndView("signin");
+            return new ModelAndView("signin")
+                    .addObject("invalidUser","Invalid username or password");
         }
     }
 
