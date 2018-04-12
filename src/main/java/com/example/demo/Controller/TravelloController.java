@@ -31,6 +31,11 @@ public class TravelloController {
         return new ModelAndView("registerUser");
     }
 
+    @GetMapping("journeyform")
+    public ModelAndView gotoJourneyform() {
+        return new ModelAndView("journeyform");
+    }
+
     @PostMapping("/registerUser")
     public ModelAndView regUser(@RequestParam String name, @RequestParam String email, @RequestParam String password, @RequestParam Date birthday) {
         if (!email.toUpperCase().matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$")){

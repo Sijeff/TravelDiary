@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -27,9 +27,9 @@
                             </div>
                             <div th:if="${session.user==null}">
                                 <li><a href="/signin.html" class="text-black">Sign in</a></li>
-                                <li><a href="registerUser.html" class="text-black">Register</a></li>
+                                <li><a href="registerUser" class="text-black">Register</a></li>
                             </div>
-                            <li><a href="journeyform.html" class="text-black">+ Add journey</a></li>
+                            <li><a href="journeyform" class="text-black">+ Add journey</a></li>
                             <li><a href="#" class="text-black">Contact</a></li>
                         </ul>
                     </div>
@@ -65,7 +65,7 @@
                 <p class="lead text-muted">Tell others about what you've experienced and get inspiration for your next journey</p>
                 <p>
                     <a href="signin.html" class="btn btn-primary my-2" id="signin">Sign in to share your journey</a>
-                    <a href="registerUser.html" class="btn btn-secondary my-2">Register new user</a>
+                    <a href="registerUser" class="btn btn-secondary my-2">Register new user</a>
                 </p>
             </div>
         </section>

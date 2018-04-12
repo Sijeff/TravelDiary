@@ -78,7 +78,7 @@ public class JdbcTravelloRepository implements TravelloRepository {
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement("SELECT * FROM users WHERE username = ? AND password = ?")) {
             ps.setString(1, username);
-            ps.setString(1, password);
+            ps.setString(2, password);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     return true;
