@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Domain.Journey;
+import com.example.demo.Domain.Location;
 import com.example.demo.Domain.User;
 import com.example.demo.Repository.TravelloRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,12 @@ public class TravelloController {
     public ModelAndView index() {
         return new ModelAndView("index");
     }
+    @GetMapping("contact")
+    public ModelAndView contact() {
+        return new ModelAndView("contact");
+    }
 
-/*    @PostMapping("journeyform")
+    @PostMapping("journeyform")
     public ModelAndView submitJourney(HttpSession session, @RequestParam String title, @RequestParam Date startDate, @RequestParam Date endDate, @RequestParam String text,
                                       @RequestParam float lat, @RequestParam float lng, @RequestParam String placeName, @RequestParam String country) {
 
@@ -42,16 +47,19 @@ public class TravelloController {
         }
 
         Journey journey = travelloRepository.getJourneyByUserID(user.getUserID());
-        Location
-        travelloRepository.addJourneyPart(title,text,startDate,endDate,journey.getJourneyID(), location.location_ID);
+        Location location = travelloRepository.getLocation(placeName,country);
+        travelloRepository.addJourneyPart(title,text,startDate,endDate,journey.getJourneyID(), location.getLocationID());
+
 
         return new ModelAndView("error");
-    }*/
+    }
 
     @GetMapping("index2")
     public ModelAndView gotoindex2() {
         return new ModelAndView("index2").addObject("locations", travelloRepository.getLocations());
 //        return new ModelAndView("index2");
+
+//        return new ModelAndView("index");
     }
 
     @GetMapping("registerUser")
@@ -73,15 +81,15 @@ public class TravelloController {
     public ModelAndView listJourneys() {
         return new ModelAndView("journeys").addObject("journeys", travelloRepository.listJourneys());
     }
-
+    
     @GetMapping("/journey/{journeyID}")
     public ModelAndView listJourneyParts(@PathVariable int journeyID) {
         Journey journey = travelloRepository.getJourney(journeyID);
         return new ModelAndView("journey")
                 .addObject("journey", journey)
+                .addObject("user", travelloRepository.getUserByJourney(journey))
                 .addObject("journeyParts", travelloRepository.getJourneyPart(journey));
     }
-
 
     @PostMapping("/registerUser")
     public ModelAndView regUser(HttpSession session,@RequestParam String name, @RequestParam String email, @RequestParam String password, @RequestParam Date birthday) {
@@ -117,7 +125,6 @@ public class TravelloController {
             travelloRepository.addUser(name, email, password, birthday, regDate);
         }
         return new ModelAndView("index").addObject("user", name);
-
     }
 
     @PostMapping("signin")

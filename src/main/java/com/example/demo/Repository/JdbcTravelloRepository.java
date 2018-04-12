@@ -51,7 +51,7 @@ public class JdbcTravelloRepository implements TravelloRepository {
     @Override
     public void addJourneyPart(String title, String text, Date startDate, Date endDate, int journey_ID, int location_ID) {
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("INSERT INTO users(title, text, startDate, endDate, journey_ID, location_ID) VALUES (?,?,?,?,?,?) ")) {
+             PreparedStatement ps = conn.prepareStatement("INSERT INTO journeyParts(title, text, startDate, endDate, journey_ID, location_ID) VALUES (?,?,?,?,?,?) ")) {
             ps.setString(1, title);
             ps.setString(2, text);
             ps.setDate(3, startDate);
@@ -67,7 +67,7 @@ public class JdbcTravelloRepository implements TravelloRepository {
     @Override
     public void addLocation(String placeName, String country, float lng, float lat) {
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("INSERT INTO journeys(placeName, country, lng, lat) VALUES (?,?,?,?) ")) {
+             PreparedStatement ps = conn.prepareStatement("INSERT INTO locations(placeName, country, lng, lat) VALUES (?,?,?,?) ")) {
             ps.setString(1, placeName);
             ps.setString(2, country);
             ps.setFloat(3,lng);
@@ -209,6 +209,22 @@ public class JdbcTravelloRepository implements TravelloRepository {
     }
 
     @Override
+    public User getUserByJourney(Journey journey){
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT *" +
+                     "FROM users WHERE userID = ?")) {
+            ps.setInt(1, journey.getUser_ID());
+            ResultSet rs = ps.executeQuery();
+            if (!rs.next()) {
+                throw new TravelloRepositoryException("No user found");
+            }
+            return objUser(rs);
+        } catch (SQLException e) {
+            throw new TravelloRepositoryException(e);
+        }
+    }
+
+    @Override
     public Journey getJourneyByUserID(int user_ID) {
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement("SELECT *" +
@@ -219,6 +235,23 @@ public class JdbcTravelloRepository implements TravelloRepository {
                 throw new TravelloRepositoryException("The wanted journey could not be found.");
             }
             return objJourney(rs);
+        } catch (SQLException e) {
+            throw new TravelloRepositoryException(e);
+        }
+    }
+
+    @Override
+    public Location getLocation(String placeName, String country) {
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT *" +
+                     "FROM locations WHERE placeName = ? AND country = ?")) {
+            ps.setString(1, placeName);
+            ps.setString(2, country);
+            ResultSet rs = ps.executeQuery();
+            if (!rs.next()) {
+                throw new TravelloRepositoryException("Wrong country.");
+            }
+            return objLocations(rs);
         } catch (SQLException e) {
             throw new TravelloRepositoryException(e);
         }

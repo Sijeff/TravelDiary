@@ -7,7 +7,7 @@
 <body>
     <h1 th:text="${journey.title}" />
     <h2>
-        <a th:href="@{./users/{userID}/(userID=${journey.user_ID})}" th:text="${journey.user_ID}" />
+        <a th:href="@{./user/{user.name}/(userName=${user.name})}" th:text="${user.name}" />
     </h2>
     <article th:each="journeyPart : ${journeyParts}">
             <h2 th:text="${journeyPart.title}" />
