@@ -1,8 +1,11 @@
 package com.example.demo.Repository;
 
+import com.example.demo.Domain.Journey;
+import com.example.demo.Domain.JourneyPart;
 import com.example.demo.Domain.User;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public interface TravelloRepository {
     void addUser(String name, String email, String password, java.sql.Date birthday, LocalDate regDate);
@@ -12,5 +15,7 @@ public interface TravelloRepository {
     boolean verifyUser(String username, String password);
     boolean checkUniqueUsername(String username);
     boolean checkDuplicateEmail(String email);
-
+    List<JourneyPart> getJourneyPart(Journey journey);
+    List<Journey> listJourneys();
+    Journey getJourney(int journeyID);
 }

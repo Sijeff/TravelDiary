@@ -1,9 +1,11 @@
 package com.example.demo.Controller;
 
+import com.example.demo.Domain.Journey;
 import com.example.demo.Repository.TravelloRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,6 +28,11 @@ public class TravelloController {
         return new ModelAndView("index");
     }
 
+    @PostMapping("journeyform")
+    public ModelAndView addJourney() {
+        System.out.println("Lägg till ny resa");
+        return new ModelAndView("error");
+    }
 
 
     @GetMapping("registerUser")
@@ -39,9 +46,23 @@ public class TravelloController {
     }
 
     @GetMapping("signin")
-    public ModelAndView gotoSignin(){
+    public ModelAndView gotoSignin() {
         return new ModelAndView("signin");
     }
+
+    @GetMapping("/journey/")
+    public ModelAndView listJourneys(){
+        return new ModelAndView("journeys").addObject("journeys",travelloRepository.listJourneys());
+    }
+
+    @GetMapping ("/journey/{journeyID}")
+    public ModelAndView listJourneyParts(@PathVariable int journeyID) {
+        Journey journey = travelloRepository.getJourney(journeyID);
+        return new ModelAndView("journey/journeyParts")
+                .addObject("journeys", journey)
+                .addObject("journeyParts", travelloRepository.getJourneyPart(journey));
+    }
+
 
     @PostMapping("/registerUser")
     public ModelAndView regUser(@RequestParam String name, @RequestParam String email, @RequestParam String password, @RequestParam Date birthday) {
@@ -102,4 +123,7 @@ public class TravelloController {
         session.invalidate();
         return "index";
     }
+
+    //@PostMapping("journeyform")
+
 }
