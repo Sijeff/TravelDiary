@@ -1,5 +1,7 @@
 package com.example.demo.Repository;
 
+import com.example.demo.Domain.Journey;
+import com.example.demo.Domain.JourneyPart;
 import com.example.demo.Domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -124,6 +126,68 @@ public class JdbcTravelloRepository implements TravelloRepository {
         }
         return false;
 
+    }
+
+    @Override
+    public List<JourneyPart> getJourneyPart(Journey journey) {
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT startDate, endDate, title, text " +
+                     "FROM journeyParts WHERE journey_ID = ? ORDER BY startDate DESC")) {
+            ps.setInt(1, journey.getJourneyID());
+            ResultSet rs = ps.executeQuery();
+            List<JourneyPart> journeyParts = new ArrayList<>();
+            while (rs.next()) journeyParts.add(objJourneyPart(rs));
+            return journeyParts;
+        } catch (SQLException e) {
+            throw new TravelloRepositoryException(e);
+        }
+    }
+
+    @Override
+    public Journey getJourney(int journeyID) {
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT *" +
+                     "FROM journeys WHERE journey_ID = ?")) {
+            ps.setInt(1, journeyID);
+            ResultSet rs = ps.executeQuery();
+            if (!rs.next()) {
+                throw new TravelloRepositoryException("The wanted journey could not be found");
+            }
+            return objJourney(rs);
+        } catch (SQLException e) {
+            throw new TravelloRepositoryException(e);
+        }
+    }
+
+
+    @Override
+    public List<Journey> listJourneys() {
+        try (Connection conn = dataSource.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT journeyID, title,user_ID FROM journeys")) {
+            List<Journey> journeys = new ArrayList<>();
+            while (rs.next()) journeys.add(objJourney(rs));
+            return journeys;
+        } catch (SQLException e) {
+            throw new TravelloRepositoryException(e);
+        }
+    }
+
+    private JourneyPart objJourneyPart(ResultSet rs) throws SQLException {
+        return new JourneyPart(
+                rs.getInt("journeyPartID"),
+                rs.getDate("startDate"),
+                rs.getDate("endDate"),
+                rs.getInt("journey_ID"),
+                rs.getString("title"),
+                rs.getString("text"));
+    }
+
+    private Journey objJourney(ResultSet rs) throws SQLException {
+        return new Journey(
+                rs.getInt("journeyID"),
+                rs.getString("title"),
+                rs.getInt("user_ID"));
     }
 }
 
