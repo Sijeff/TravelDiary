@@ -63,11 +63,14 @@ public class JdbcTravelloRepository implements TravelloRepository {
     }
 
     @Override
-    public void addLocation(String placeName, String country, int journeyParts_id) {
+    public void addLocation(String placeName, String country, int journeyParts_id, float lng, float lat) {
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("INSERT INTO journeys(placeName, country, journeyParts_id) VALUES (?,?,?) ")) {
+             PreparedStatement ps = conn.prepareStatement("INSERT INTO journeys(placeName, country, journeyParts_id) VALUES (?,?,?,?,?) ")) {
             ps.setString(1, placeName);
             ps.setString(2, country);
+            ps.setInt(3,journeyParts_id);
+            ps.setFloat(4,lng);
+            ps.setFloat(5,lat);
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new TravelloRepositoryException(e);
@@ -188,6 +191,22 @@ public class JdbcTravelloRepository implements TravelloRepository {
         }
     }
 
+    @Override
+    public User getUser(String username) {
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT *" +
+                     "FROM userss WHERE name = ?")) {
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            if (!rs.next()) {
+                throw new TravelloRepositoryException("Wrong username.");
+            }
+            return objUser(rs);
+        } catch (SQLException e) {
+            throw new TravelloRepositoryException(e);
+        }
+    }
+
     private JourneyPart objJourneyPart(ResultSet rs) throws SQLException {
         return new JourneyPart(
                 rs.getInt("journeyPartID"),
@@ -203,6 +222,16 @@ public class JdbcTravelloRepository implements TravelloRepository {
                 rs.getInt("journeyID"),
                 rs.getString("title"),
                 rs.getInt("user_ID"));
+    }
+
+    private User objUser(ResultSet rs) throws SQLException {
+        return new User(
+                rs.getString("name"),
+                rs.getString("email"),
+                rs.getString("password"),
+                rs.getDate("birthday"),
+                rs.getInt("userID")
+        );
     }
 }
 
