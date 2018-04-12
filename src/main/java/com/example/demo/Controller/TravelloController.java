@@ -42,7 +42,7 @@ public class TravelloController {
         }
 
         Journey journey = travelloRepository.getJourneyByUserID(user.getUserID());
-        Location 
+        Location
         travelloRepository.addJourneyPart(title,text,startDate,endDate,journey.getJourneyID(), location.location_ID);
 
         return new ModelAndView("error");

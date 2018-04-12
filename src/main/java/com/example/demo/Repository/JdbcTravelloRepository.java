@@ -195,7 +195,7 @@ public class JdbcTravelloRepository implements TravelloRepository {
     public User getUser(String username) {
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement("SELECT *" +
-                     "FROM userss WHERE name = ?")) {
+                     "FROM users WHERE name = ?")) {
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
             if (!rs.next()) {
