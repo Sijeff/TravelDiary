@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Domain.Journey;
+import com.example.demo.Domain.User;
 import com.example.demo.Repository.TravelloRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,8 +34,21 @@ public class TravelloController {
     }
 
     @PostMapping("journeyform")
-    public ModelAndView addJourney() {
-        System.out.println("Lägg till ny resa");
+    public ModelAndView submitJourney(HttpSession session, @RequestParam String title, @RequestParam Date startDate, @RequestParam Date endDate, @RequestParam String text,
+                                      @RequestParam float lat, @RequestParam float lng, @RequestParam String placeName, @RequestParam String country) {
+
+        String username = (String) session.getAttribute("user");
+        User user = travelloRepository.getUser(username);
+        travelloRepository.addJourney(title,user);
+
+        if(!travelloRepository.verifyLocation(placeName,country)){
+            travelloRepository.addLocation(placeName,country,lng,lat);
+        }
+
+        Journey journey = travelloRepository.getJourneyByUserID(user.getUserID());
+        Location
+        travelloRepository.addJourneyPart(title,text,startDate,endDate,journey.getJourneyID(), location.location_ID);
+
         return new ModelAndView("error");
     }
 
@@ -54,11 +68,11 @@ public class TravelloController {
     }
 
     @GetMapping("/journey/")
-    public ModelAndView listJourneys(){
-        return new ModelAndView("journeys").addObject("journeys",travelloRepository.listJourneys());
+    public ModelAndView listJourneys() {
+        return new ModelAndView("journeys").addObject("journeys", travelloRepository.listJourneys());
     }
-
-    @GetMapping ("/journey/{journeyID}/")
+    
+    @GetMapping("/journey/{journeyID}")
     public ModelAndView listJourneyParts(@PathVariable int journeyID) {
         Journey journey = travelloRepository.getJourney(journeyID);
         return new ModelAndView("journey")
@@ -71,30 +85,30 @@ public class TravelloController {
         if (!email.toUpperCase().matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$")){
             return new ModelAndView("registerUser")
                     .addObject("invalidInput", "Invalid email. Please try again.")
-                    .addObject("enteredName",name)
+                    .addObject("enteredName", name)
                     .addObject("enteredDate", birthday);
-        }else if(birthday.toLocalDate().compareTo(LocalDate.now())>= 0){
+        } else if (birthday.toLocalDate().compareTo(LocalDate.now()) >= 0) {
             return new ModelAndView("registerUser")
                     .addObject("invalidInput", "Birthday is invalid. Please try again.")
-                    .addObject("enteredEmail",email)
-                    .addObject("enteredName",name);
-        }else if(!travelloRepository.checkUniqueUsername(name) || name.equals("")){
+                    .addObject("enteredEmail", email)
+                    .addObject("enteredName", name);
+        } else if (!travelloRepository.checkUniqueUsername(name) || name.equals("")) {
             return new ModelAndView("registerUser")
                     .addObject("invalidInput", "Username taken or invalid. Please try again.")
-                    .addObject("enteredEmail",email)
+                    .addObject("enteredEmail", email)
                     .addObject("enteredDate", birthday);
-        }else if(password.equals("")){
+        } else if (password.equals("")) {
             return new ModelAndView("registerUser")
                     .addObject("invalidInput", "Please enter a password.")
-                    .addObject("enteredName",name)
-                    .addObject("enteredEmail",email)
+                    .addObject("enteredName", name)
+                    .addObject("enteredEmail", email)
                     .addObject("enteredDate", birthday);
-        }else if(travelloRepository.checkDuplicateEmail(email)){
+        } else if (travelloRepository.checkDuplicateEmail(email)) {
             return new ModelAndView("registerUser")
                     .addObject("invalidInput", "This email is already registered. Please try again.")
-                    .addObject("enteredName",name)
+                    .addObject("enteredName", name)
                     .addObject("enteredDate", birthday);
-        }else {
+        } else {
             LocalDate regDate = LocalDate.now();
             session.setAttribute("user", name);
             travelloRepository.addUser(name, email, password, birthday, regDate);
@@ -103,9 +117,13 @@ public class TravelloController {
     }
 
     @PostMapping("signin")
-    public ModelAndView login(HttpSession session,HttpServletResponse res, @RequestParam String username, @RequestParam String password) {
+    public ModelAndView login(HttpSession session, HttpServletResponse res, @RequestParam String username, @RequestParam String password) {
         if (travelloRepository.verifyUser(username, password)) {
+
+            User user = travelloRepository.getUser(username);
             session.setAttribute("user", username);
+            session.setAttribute("userID",user.getUserID());
+
             return new ModelAndView("index").addObject("user", username);
         } else {
             session.removeAttribute("user");
@@ -113,12 +131,13 @@ public class TravelloController {
             cookie.setMaxAge(0);
             res.addCookie(cookie);
             session.invalidate();
-            return new ModelAndView("signin");
+            return new ModelAndView("signin")
+                    .addObject("invalidUser","Invalid username or password");
         }
     }
 
     @GetMapping("logout")
-    public String logout (HttpSession session, HttpServletResponse res) {
+    public String logout(HttpSession session, HttpServletResponse res) {
         session.removeAttribute("user");
         Cookie cookie = new Cookie("JSESSIONID", null);
         cookie.setMaxAge(0);
@@ -126,5 +145,6 @@ public class TravelloController {
         session.invalidate();
         return "index";
     }
+
 
 }

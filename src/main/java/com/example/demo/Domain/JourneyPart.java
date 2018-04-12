@@ -4,14 +4,16 @@ import java.sql.Date;
 
 public class JourneyPart {
     private int journeyPartID;
+    private int location_ID;
     private Date startDate;
     private Date endDate;
     private int journey_ID;
     private String title;
     private String text;
 
-    public JourneyPart(int journeyPartID, Date startDate, Date endDate, int journey_ID, String title, String text) {
+    public JourneyPart(int journeyPartID, int location_ID, Date startDate, Date endDate, int journey_ID, String title, String text) {
         this.journeyPartID = journeyPartID;
+        this.location_ID = location_ID;
         this.startDate = startDate;
         this.endDate = endDate;
         this.journey_ID = journey_ID;
@@ -41,5 +43,9 @@ public class JourneyPart {
 
     public String getText() {
         return text;
+    }
+
+    public int getLocation_ID() {
+        return location_ID;
     }
 }

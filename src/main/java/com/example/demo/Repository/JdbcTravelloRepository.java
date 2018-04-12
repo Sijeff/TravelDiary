@@ -2,6 +2,7 @@ package com.example.demo.Repository;
 
 import com.example.demo.Domain.Journey;
 import com.example.demo.Domain.JourneyPart;
+import com.example.demo.Domain.Location;
 import com.example.demo.Domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -48,14 +49,15 @@ public class JdbcTravelloRepository implements TravelloRepository {
     }
 
     @Override
-    public void addJourneyPart(String title, String text, Date startDate, Date endDate, int journey_ID) {
+    public void addJourneyPart(String title, String text, Date startDate, Date endDate, int journey_ID, int location_ID) {
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("INSERT INTO users(title, text, startDate, endDate, journey_ID) VALUES (?,?,?,?,?) ")) {
+             PreparedStatement ps = conn.prepareStatement("INSERT INTO users(title, text, startDate, endDate, journey_ID, location_ID) VALUES (?,?,?,?,?,?) ")) {
             ps.setString(1, title);
             ps.setString(2, text);
             ps.setDate(3, startDate);
             ps.setDate(4, endDate);
             ps.setInt(5, journey_ID);
+            ps.setInt(6,location_ID);
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new TravelloRepositoryException(e);
@@ -63,11 +65,13 @@ public class JdbcTravelloRepository implements TravelloRepository {
     }
 
     @Override
-    public void addLocation(String placeName, String country, int journeyParts_id) {
+    public void addLocation(String placeName, String country, float lng, float lat) {
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("INSERT INTO journeys(placeName, country, journeyParts_id) VALUES (?,?,?) ")) {
+             PreparedStatement ps = conn.prepareStatement("INSERT INTO journeys(placeName, country, lng, lat) VALUES (?,?,?,?) ")) {
             ps.setString(1, placeName);
             ps.setString(2, country);
+            ps.setFloat(3,lng);
+            ps.setFloat(4,lat);
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new TravelloRepositoryException(e);
@@ -92,7 +96,22 @@ public class JdbcTravelloRepository implements TravelloRepository {
         return false;
     }
 
-
+    @Override
+    public boolean verifyLocation(String placeName, String country) {
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT * FROM locations WHERE placeName = ? AND country = ?")) {
+            ps.setString(1, placeName);
+            ps.setString(2, country);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            throw new TravelloRepositoryException(e);
+        }
+        return false;
+    }
     @Override
     public boolean checkUniqueUsername(String username) {
         try (Connection conn = dataSource.getConnection();
@@ -173,9 +192,42 @@ public class JdbcTravelloRepository implements TravelloRepository {
         }
     }
 
+    @Override
+    public User getUser(String username) {
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT *" +
+                     "FROM users WHERE name = ?")) {
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            if (!rs.next()) {
+                throw new TravelloRepositoryException("Wrong username.");
+            }
+            return objUser(rs);
+        } catch (SQLException e) {
+            throw new TravelloRepositoryException(e);
+        }
+    }
+
+    @Override
+    public Journey getJourneyByUserID(int user_ID) {
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT *" +
+                     "FROM journeys WHERE user_ID = ?")) {
+            ps.setInt(1, user_ID);
+            ResultSet rs = ps.executeQuery();
+            if (!rs.next()) {
+                throw new TravelloRepositoryException("The wanted journey could not be found.");
+            }
+            return objJourney(rs);
+        } catch (SQLException e) {
+            throw new TravelloRepositoryException(e);
+        }
+    }
+
     private JourneyPart objJourneyPart(ResultSet rs) throws SQLException {
         return new JourneyPart(
                 rs.getInt("journeyPartID"),
+                rs.getInt("location_ID"),
                 rs.getDate("startDate"),
                 rs.getDate("endDate"),
                 rs.getInt("journey_ID"),
@@ -188,6 +240,44 @@ public class JdbcTravelloRepository implements TravelloRepository {
                 rs.getInt("journeyID"),
                 rs.getString("title"),
                 rs.getInt("user_ID"));
+    }
+
+
+    private User objUser(ResultSet rs) throws SQLException {
+        return new User(
+                rs.getString("name"),
+                rs.getString("email"),
+                rs.getString("password"),
+                rs.getDate("birthday"),
+                rs.getInt("userID")
+        );
+    }
+
+
+
+
+    @Override
+    public List<Location> getLocations() {
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT * FROM locations")) {
+            List<Location> locationList = new ArrayList<>();
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) locationList.add(objLocations(rs));
+            return locationList;
+        } catch (SQLException e) {
+            throw new TravelloRepositoryException(e);
+        }
+    }
+
+
+    private Location objLocations(ResultSet rs) throws SQLException {
+        return new Location(
+                rs.getInt("locationID"),
+                rs.getString("placeName"),
+                rs.getString("country"),
+                rs.getFloat("lng"),
+                rs.getFloat("lat")
+        );
     }
 }
 
