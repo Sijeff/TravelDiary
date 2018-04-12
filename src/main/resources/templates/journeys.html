@@ -1,0 +1,21 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>All journeys</title>
+</head>
+
+<body>
+    <h1>Pick a story to learn more and be inspired!</h1>
+    <article th:each="journey : ${journeys}">
+        <header>
+            <h2>
+                <a th:href="@{./journeys/{journeyID}/(id=${journey.journeyID})}" th:text="${journey.title}" />
+            </h2>
+        </header>
+    </article>
+</body>
+
+</html>
