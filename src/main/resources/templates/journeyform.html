@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://w3.org/1999/xhtml" lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -52,11 +52,11 @@
     </div>
 </header>
 <div class="content">
-    <form action="POST" id="submitjourney">
+    <form action="index" method="post" id="submitjourney">
         <div class="form-group">
             <div class="form-group col-md-6">
                 <label for="exampleFormControlInput1">Title</label>
-                <input id="title" type="text" class="form-control" placeholder="Describe your journey in a few words" required>
+                <input name="title" id="title" type="text" class="form-control" placeholder="Describe your journey in a few words" required>
             </div>
             <div class="form-group col-md-6">
                 <label for="exampleFormControlSelect1">Where did you travel?</label>
@@ -66,17 +66,17 @@
         <div class="form-group">
             <div class="form-group col-md-2">
                 <label for="enddate">Your journey started on:</label>
-                <input id="startdate" type="date" required>
+                <input name="startDate" id="startdate" type="date" required>
             </div>
             <div class="form-group col-md-2">
                 <label for="startdate">Your journey ended on:</label>
-                <input id="enddate" type="date" required>
+                <input name="endDate" id="enddate" type="date" required>
             </div>
         </div>
         <div class="form-group">
             <div class="form-group col-md-8">
                 <label for="exampleFormControlInput1">Description</label>
-                <textarea class="form-control" rows="8" id="comment" placeholder="What did you experience?"></textarea>
+                <textarea name="text" class="form-control" rows="8" id="comment" placeholder="What did you experience?"></textarea>
             </div>
         </div>
         <div class="form-group">
@@ -87,10 +87,10 @@
 
 
 
-        <input id="locality" disabled="true"></input>
-        <input id="country" disabled="true"></input>
-        <input id="lat" disabled="true"></input>
-        <input id="lng" disabled="true"></input>
+        <input name="placeName" id="locality" disabled="true"></input>
+        <input name="country" id="country" disabled="true"></input>
+        <input name="lat" id="lat" disabled="true"></input>
+        <input name="lng" id="lng" disabled="true"></input>
 
 
     </form>

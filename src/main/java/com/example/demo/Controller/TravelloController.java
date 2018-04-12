@@ -98,7 +98,4 @@ public class TravelloController {
         return "index";
     }
 
-//    @PostMapping("journeyform")
-//    public ModelAndView regJourney()
-
 }
