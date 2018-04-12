@@ -22,5 +22,6 @@ public interface TravelloRepository {
     List<Journey> listJourneys();
     Journey getJourney(int journeyID);
     User getUser(String username);
+    User getUserByJourney(Journey journey);
     Journey getJourneyByUserID(int user_ID);
 }

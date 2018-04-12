@@ -209,6 +209,22 @@ public class JdbcTravelloRepository implements TravelloRepository {
     }
 
     @Override
+    public User getUserByJourney(Journey journey){
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT *" +
+                     "FROM users WHERE userID = ?")) {
+            ps.setInt(1, journey.getUser_ID());
+            ResultSet rs = ps.executeQuery();
+            if (!rs.next()) {
+                throw new TravelloRepositoryException("No user found");
+            }
+            return objUser(rs);
+        } catch (SQLException e) {
+            throw new TravelloRepositoryException(e);
+        }
+    }
+
+    @Override
     public Journey getJourneyByUserID(int user_ID) {
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement("SELECT *" +
