@@ -70,11 +70,11 @@ public class TravelloController {
     }
 
     @GetMapping("journeyform")
-    public ModelAndView gotoJourneyform(HttpSession session) {
+    public ModelAndView gotoJourneyform(HttpSession session ) {
         if (session.getAttribute("user") != null){
             return new ModelAndView("journeyform");
         }else{
-            return new ModelAndView("signin");
+            return new ModelAndView("redirect:signin");
         }
 
     }
