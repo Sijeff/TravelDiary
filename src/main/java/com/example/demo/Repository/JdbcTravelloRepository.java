@@ -240,6 +240,23 @@ public class JdbcTravelloRepository implements TravelloRepository {
         }
     }
 
+    @Override
+    public Location getLocation(String placeName, String country) {
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT *" +
+                     "FROM locations WHERE placeName = ? AND country = ?")) {
+            ps.setString(1, placeName);
+            ps.setString(2, country);
+            ResultSet rs = ps.executeQuery();
+            if (!rs.next()) {
+                throw new TravelloRepositoryException("Wrong country.");
+            }
+            return objLocations(rs);
+        } catch (SQLException e) {
+            throw new TravelloRepositoryException(e);
+        }
+    }
+
     private JourneyPart objJourneyPart(ResultSet rs) throws SQLException {
         return new JourneyPart(
                 rs.getInt("journeyPartID"),
