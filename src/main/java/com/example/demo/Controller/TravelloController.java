@@ -29,7 +29,7 @@ public class TravelloController {
         return new ModelAndView("index");
     }
 
-    @PostMapping("journeyform")
+/*    @PostMapping("journeyform")
     public ModelAndView submitJourney(HttpSession session, @RequestParam String title, @RequestParam Date startDate, @RequestParam Date endDate, @RequestParam String text,
                                       @RequestParam float lat, @RequestParam float lng, @RequestParam String placeName, @RequestParam String country) {
 
@@ -46,8 +46,13 @@ public class TravelloController {
         travelloRepository.addJourneyPart(title,text,startDate,endDate,journey.getJourneyID(), location.location_ID);
 
         return new ModelAndView("error");
-    }
+    }*/
 
+    @GetMapping("index2")
+    public ModelAndView gotoindex2() {
+        return new ModelAndView("index2").addObject("locations", travelloRepository.getLocations());
+//        return new ModelAndView("index2");
+    }
 
     @GetMapping("registerUser")
     public ModelAndView gotoRegister() {

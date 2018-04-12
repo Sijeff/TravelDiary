@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Travello</title>
+
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        div #map {
+            height: 100%;
+            width: 100%;
+        }
+
+        .jumbotron {
+            height: 50vh;
+        }
+    </style>
+</head>
+
+<body>
+
+
+<header>
+    <div class="collapse bg-light" id="navbarHeader">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4 py-4">
+                    <ul class="list-unstyled">
+                        <li><a href="signin" class="text-black">Sign in</a></li>
+                        <li><a href="journeyform" class="text-black">+ Add journey</a></li>
+                        <li><a href="#" class="text-black">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navbar navbar-light bg-light box-shadow">
+        <div class="container d-flex justify-content-between">
+            <a href="index.html" class="navbar-brand d-flex align-items-center">
+                <img src="TravelloLogo.png" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                <strong>Travello</strong>
+            </a>
+
+            <form class="form-inline mt-2 mt-md-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search">Search</button>
+            </form>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
+                    aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </div>
+</header>
+
+
+<main role="main">
+
+    <section id="map" class="jumbotron text-center">
+        <div class="container">
+
+
+            <script>
+
+                var locationsPre = [];
+/*                var locationsPre = [{
+                    lat: 59.9138688,
+                    lng: 10.752245399999993
+                }, {
+                    lat: 55.604981,
+                    lng: 13.003822000000014
+                }, {
+                    lat: 58.9699756,
+                    lng: 5.733107399999994
+                }, {
+                    lat: 55.6760968,
+                    lng: 12.568337199999974
+                }, {
+                    lat: 60.16985569999999,
+                    lng: 24.93837910000002
+                }, {
+                    lat: 50.0755381,
+                    lng: 14.43780049999998
+                }, {
+                    lat: 56.9496487,
+                    lng: 24.105186499999945
+                }]*/
+
+
+                var locations = []
+
+                function populateLocations() {
+                    for (var i = 0; i < locationsPre.length; i++)
+                        locations.push(locationsPre[i]);
+                }
+
+                populateLocations();
+
+                function initMap() {
+
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                        zoom: 3,
+                        center: {
+                            lat: 55.604981,
+                            lng: 13.003822000000014
+                        }
+                    });
+
+                    // Create an array of alphabetical characters used to label the markers.
+                    var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+                    // Add some markers to the map.
+                    // Note: The code uses the JavaScript Array.prototype.map() method to
+                    // create an array of markers based on a given "locations" array.
+                    // The map() method here has nothing to do with the Google Maps API.
+                    var markers = locations.map(function (location, i) {
+                        return new google.maps.Marker({
+                            position: location,
+                            label: labels[i % labels.length]
+                        });
+                    });
+
+                    // Add a marker clusterer to manage the markers.
+                    var markerCluster = new MarkerClusterer(map, markers, {
+                        imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+                    });
+                }
+
+
+            </script>
+            <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+            </script>
+            <script async defer
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBreoQlpyGMcRteGhBXkHnZrmv8F8QhRC8&callback=initMap">
+            </script>
+
+
+            <h1 class="jumbotron-heading">Welcome to Travello!</h1>
+            <p class="lead text-muted">Tell others about what you've experienced and get inspiration for your next
+                journey</p>
+            <p>
+                <a href="signin" class="btn btn-primary my-2" id="signin">Sign in to share your journey</a>
+                <a href="registerUser.html" class="btn btn-secondary my-2">Register new user</a>
+            </p>
+        </div>
+    </section>
+
+
+</main>
+
+<footer class="text-muted">
+    <div class="container">
+        <p class="float-right">
+            <a href="#">Back to top</a>
+        </p>
+    </div>
+</footer>
+
+
+<div id="latlng" th:each="locationz : ${locations}">
+    <p class="latlngclass" th:href="@{./{locationID}/(locationID=${locationz.locationID})}" th:text="'{ &quotlat&quot:&quot'${locationz.lat}'&quot, &quotlng&quot:&quot'${locationz.lng}'&quot}'" />
+</div>
+
+
+<script>
+    var far = document.getElementById("latlng");
+    var latlngarray = [];
+
+    var latlngfunc = function() {
+
+
+
+        var myNodelist = document.querySelectorAll(".latlngclass");
+        var i;
+        for (i = 0; i < myNodelist.length; i++) {
+            // latlngarray.add(myNodelist[i]);
+            // latlngarray[i] = myNodelist[i];
+
+            var obj = JSON.parse(myNodelist[i].innerHTML);
+            latlngarray.push(obj);
+            console.log(i + "  - " + myNodelist[i].innerHTML);
+
+        }
+
+
+/*        latlngarray = Array.from(children);
+        console.log(latlngarray.toString());*/
+
+
+/*        for (e in latlngarray)
+        {
+            console.log(e.valueOf());
+        }*/
+    };
+    latlngfunc();
+
+    var markers = latlngarray.map(function (location, i) {
+        return new google.maps.Marker({
+            position: location,
+            label: labels[i % labels.length]
+        });
+    });
+    markers();
+</script>
+
+
+<script src="script/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script>
+    window.jQuery || document.write('<script src="script/jquery-slim.min.js"><\/script>')
+</script>
+<script src="script/popper.min.js"></script>
+<script src="script/bootstrap.min.js"></script>
+<script src="script/holder.min.js"></script>
+
+
+<script src="/script/markerclusterer.js">
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBreoQlpyGMcRteGhBXkHnZrmv8F8QhRC8&callback=initMap">
+</script>
+
+
+</body>
+
+</html>
