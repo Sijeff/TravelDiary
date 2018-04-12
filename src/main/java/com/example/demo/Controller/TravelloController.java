@@ -19,7 +19,7 @@ public class TravelloController {
     @Autowired
     private TravelloRepository travelloRepository;
 
-    @GetMapping("index")
+    @GetMapping("/")
     public ModelAndView index() {
         return new ModelAndView("index");
     }
@@ -93,6 +93,7 @@ public class TravelloController {
         return "index";
     }
 
-    //@PostMapping("journeyform")
+//    @PostMapping("journeyform")
+//    public ModelAndView regJourney()
 
 }
