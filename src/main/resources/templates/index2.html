@@ -89,7 +89,7 @@
                 <a href="signin" class="btn btn-primary my-2" id="signin">Sign in to share your journey</a>
                 <a href="registerUser.html" class="btn btn-secondary my-2">Register new user</a>
             </p>
-            
+
             <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
             </script>
 
@@ -139,7 +139,7 @@
 </footer>
 
 
-<div id="latlng" hidden th:each="locationz : ${locations}">
+<div id="latlng"  th:each="locationz : ${locations}">
     <p class="latlngclass" th:href="@{./{locationID}/(locationID=${locationz.locationID})}"
        th:text="'{ &quotlat&quot:'+${locationz.lat}+', '+ '&quotlng&quot:'+${locationz.lng}+'}'"/>
 </div>
