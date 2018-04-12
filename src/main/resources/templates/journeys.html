@@ -1,9 +1,8 @@
 <!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="css/style.css" />
     <title>All journeys</title>
 </head>
 
@@ -12,7 +11,7 @@
     <article th:each="journey : ${journeys}">
         <header>
             <h2>
-                <a th:href="@{./journeys/{journeyID}/(id=${journey.journeyID})}" th:text="${journey.title}" />
+                <a th:href="@{./{journeyID}/(journeyID=${journey.journeyID})}" th:text="${journey.title}" />
             </h2>
         </header>
     </article>
