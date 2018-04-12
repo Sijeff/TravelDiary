@@ -37,6 +37,8 @@ CREATE TABLE journeyParts (
 
 CREATE TABLE locations (
 	locationID int IDENTITY(1,1),
+	lat float not null,
+	lng float not null,
 	placeName nvarchar(80) not null,
 	country nvarchar(80) not null,
 	journeyParts_id int not null,
