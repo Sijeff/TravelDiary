@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/css/bootstrap.css">
 
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato|Raleway" rel="stylesheet">
 
 </head>
 
@@ -26,7 +27,7 @@
                                 <h3 text="'Welcome ' + ${session.user}" class="text-black"></h3>
                             </div>
                             <div th:if="${session.user==null}">
-                                <li><a href="/signin.html" class="text-black">Sign in</a></li>
+                                <li><a href="signin" class="text-black">Sign in</a></li>
                                 <li><a href="registerUser" class="text-black">Register</a></li>
                             </div>
                             <li><a href="journeyform" class="text-black">+ Add journey</a></li>
@@ -38,7 +39,7 @@
         </div>
         <div class="navbar navbar-light bg-light box-shadow">
             <div class="container d-flex justify-content-between">
-                <a href="index.html" class="navbar-brand d-flex align-items-center">
+                <a href="index" class="navbar-brand d-flex align-items-center">
                     <img src="/TravelloLogo.png" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
                     <strong>Travello</strong>
                 </a>
@@ -64,7 +65,7 @@
                 <h1 class="jumbotron-heading">Welcome to Travello!</h1>
                 <p class="lead text-muted">Tell others about what you've experienced and get inspiration for your next journey</p>
                 <p>
-                    <a href="signin.html" class="btn btn-primary my-2" id="signin">Sign in to share your journey</a>
+                    <a href="signin" class="btn btn-primary my-2" id="signin">Sign in to share your journey</a>
                     <a href="registerUser" class="btn btn-secondary my-2">Register new user</a>
                 </p>
             </div>

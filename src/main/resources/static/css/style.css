@@ -4,9 +4,14 @@ body {
 
 h1 {
     text-shadow: 1px 1px rgb(216, 211, 211);
+    font-family: 'Raleway', serif;
 }
 
-  .topnav {
+p {
+    font-family: 'Lato', sans-serif;
+}
+
+.topnav {
     overflow: hidden;
     background-color: #CC5F96;
     display: flex;
