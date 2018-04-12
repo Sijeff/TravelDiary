@@ -52,13 +52,13 @@
 
 
 <div class="text-center">
-    <form class="form-signin">
+    <form method="post" class="form-signin">
         <img class="mb-4" src="TravelloLogo.png" alt="" width="100" height="100">
         <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
         <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <input name="username" type="text" id="inputEmail" class="form-control" placeholder="Username" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
         <button class="btn btn-lg btn-primary btn-block" type="submit" id="signin">Sign in</button>
     </form>
 </div>

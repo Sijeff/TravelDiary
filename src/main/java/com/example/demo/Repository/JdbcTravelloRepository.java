@@ -78,7 +78,7 @@ public class JdbcTravelloRepository implements TravelloRepository {
     @Override
     public boolean verifyUser(String username, String password) {
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("SELECT * FROM users WHERE username = ? AND password = ?")) {
+             PreparedStatement ps = conn.prepareStatement("SELECT * FROM users WHERE name = ? AND password = ?")) {
             ps.setString(1, username);
             ps.setString(2, password);
             try (ResultSet rs = ps.executeQuery()) {
