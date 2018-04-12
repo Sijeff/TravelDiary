@@ -52,14 +52,14 @@
     </div>
 </header>
 <div class="content">
-    <form action="POST" id="submitjourney">
+    <form action="journeyform" id="submitjourney">
         <div class="form-group">
             <div class="form-group col-md-6">
-                <label for="exampleFormControlInput1">Title</label>
+                <label for="title">Title</label>
                 <input id="title" type="text" class="form-control" placeholder="Describe your journey in a few words" required>
             </div>
             <div class="form-group col-md-6">
-                <label for="exampleFormControlSelect1">Where did you travel?</label>
+                <label for="location">Where did you travel?</label>
                 <input id="location" class="form-control" placeholder="Where did you travel?" type="text"></input>
             </div>
         </div>
@@ -75,7 +75,7 @@
         </div>
         <div class="form-group">
             <div class="form-group col-md-8">
-                <label for="exampleFormControlInput1">Description</label>
+                <label for="comment">Description</label>
                 <textarea class="form-control" rows="8" id="comment" placeholder="What did you experience?"></textarea>
             </div>
         </div>
@@ -87,10 +87,10 @@
 
 
 
-        <input id="locality" disabled="true"></input>
-        <input id="country" disabled="true"></input>
-        <input id="lat" disabled="true"></input>
-        <input id="lng" disabled="true"></input>
+        <input id="locality" disabled="true">
+        <input id="country" disabled="true">
+        <input id="lat" disabled="true">
+        <input id="lng" disabled="true">
 
 
     </form>
