@@ -92,7 +92,22 @@ public class JdbcTravelloRepository implements TravelloRepository {
         return false;
     }
 
-
+    @Override
+    public boolean verifyLocation(String placeName, String country) {
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT * FROM locations WHERE placeName = ? AND country = ?")) {
+            ps.setString(1, placeName);
+            ps.setString(2, country);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            throw new TravelloRepositoryException(e);
+        }
+        return false;
+    }
     @Override
     public boolean checkUniqueUsername(String username) {
         try (Connection conn = dataSource.getConnection();

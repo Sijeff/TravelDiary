@@ -15,6 +15,7 @@ public interface TravelloRepository {
     boolean verifyUser(String username, String password);
     boolean checkUniqueUsername(String username);
     boolean checkDuplicateEmail(String email);
+    public boolean verifyLocation(String placeName, String country);
     List<JourneyPart> getJourneyPart(Journey journey);
     List<Journey> listJourneys();
     Journey getJourney(int journeyID);
