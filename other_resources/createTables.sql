@@ -1,6 +1,6 @@
 USE Academy_Projekt5;
 
-DROP TABLE locations, journeyParts,journeys,users   
+DROP TABLE locations, journeyParts,journeys,users
 
 CREATE TABLE users (
 	userID int IDENTITY(1,1),
@@ -23,27 +23,30 @@ CREATE TABLE journeys (
 	CONSTRAINT PK_journeyID PRIMARY KEY (journeyID)
 
 );
-CREATE TABLE journeyParts (
-	journeyPartID int IDENTITY(1,1),
-	startDate date not null,
-	endDate date not null,
-	journey_ID int not null,
-	title nvarchar(80) not null,
-	text nvarchar(2000) not null,
-	CONSTRAINT FK_JourneysJourneyPart FOREIGN KEY (journey_ID)
-    REFERENCES journeys(journeyID),
-	CONSTRAINT PK_journeyPartID PRIMARY KEY (journeyPartID)
-);
 
 CREATE TABLE locations (
 	locationID int IDENTITY(1,1),
-	lat float not null,
-	lng float not null,
 	placeName nvarchar(80) not null,
 	country nvarchar(80) not null,
-	journeyParts_id int not null,
-	CONSTRAINT FK_JourneyPartsLocation FOREIGN KEY (journeyParts_id)
-    REFERENCES journeyParts(journeyPartID),
+	lat float not null,
+	lng float not null,
 	CONSTRAINT PK_locationID PRIMARY KEY (locationID)
 );
+
+CREATE TABLE journeyParts (
+	journeyPartID int IDENTITY(1,1),
+	location_ID int not null,
+	journey_ID int not null,
+	startDate date not null,
+	endDate date not null,
+	title nvarchar(80),
+	text nvarchar(2000) not null,
+	CONSTRAINT FK_JourneysJourneyPart FOREIGN KEY (journey_ID)
+    REFERENCES journeys(journeyID),
+	CONSTRAINT FK_JourneyPartLocation FOREIGN KEY (location_ID)
+	REFERENCES locations(locationID),
+	CONSTRAINT PK_journeyPartID PRIMARY KEY (journeyPartID)
+);
+
+
 
