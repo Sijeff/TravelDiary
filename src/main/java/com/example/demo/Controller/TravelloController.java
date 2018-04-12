@@ -73,7 +73,7 @@ public class TravelloController {
 
 
     @PostMapping("/registerUser")
-    public ModelAndView regUser(@RequestParam String name, @RequestParam String email, @RequestParam String password, @RequestParam Date birthday) {
+    public ModelAndView regUser(HttpSession session,@RequestParam String name, @RequestParam String email, @RequestParam String password, @RequestParam Date birthday) {
         if (!email.toUpperCase().matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$")){
             return new ModelAndView("registerUser")
                     .addObject("invalidInput", "Invalid email. Please try again.")
@@ -102,9 +102,10 @@ public class TravelloController {
                     .addObject("enteredDate", birthday);
         }else {
             LocalDate regDate = LocalDate.now();
+            session.setAttribute("user", name);
             travelloRepository.addUser(name, email, password, birthday, regDate);
         }
-        return new ModelAndView("error");
+        return new ModelAndView("index").addObject("user", name);
     }
 
     @PostMapping("signin")
