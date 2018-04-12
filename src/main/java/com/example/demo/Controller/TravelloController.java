@@ -19,7 +19,7 @@ public class TravelloController {
     @Autowired
     private TravelloRepository travelloRepository;
 
-    @GetMapping("/")
+    @GetMapping("index")
     public ModelAndView index() {
         return new ModelAndView("index");
     }
@@ -39,6 +39,16 @@ public class TravelloController {
     @GetMapping("journeyform")
     public ModelAndView gotoJourneyform() {
         return new ModelAndView("journeyform");
+    }
+
+    @GetMapping("signin")
+    public ModelAndView gotoSignin() {
+        return new ModelAndView("signin");
+    }
+    @GetMapping("/journey/")
+    public ModelAndView listJourneys(){
+        return new ModelAndView("journeys");
+
     }
 
     @PostMapping("/registerUser")
@@ -92,4 +102,7 @@ public class TravelloController {
 
         return "index";
     }
+
+    //@PostMapping("journeyform")
+
 }
