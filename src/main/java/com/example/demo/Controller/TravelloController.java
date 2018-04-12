@@ -32,18 +32,18 @@ public class TravelloController {
     @PostMapping("journeyform")
     public ModelAndView submitJourney(HttpSession session, @RequestParam String title, @RequestParam Date startDate, @RequestParam Date endDate, @RequestParam String text,
                                       @RequestParam float lat, @RequestParam float lng, @RequestParam String placeName, @RequestParam String country) {
-        //int userIDInt = (Integer) session.getAttribute("userID");
+
         String username = (String) session.getAttribute("user");
         User user = travelloRepository.getUser(username);
-
         travelloRepository.addJourney(title,user);
-        if(validate if exists placeName, country){
+
+        if(!travelloRepository.verifyLocation(placeName,country)){
             travelloRepository.addLocation(placeName,country,lng,lat);
         }
 
-        User user = travelloRepository.getJourneyByUserID()
-        //skapa journey-objekt utifrån user-id
-        travelloRepository.addJourneyPart(title,text,startDate,endDate,journey.journey_ID, location.location_ID);
+        Journey journey = travelloRepository.getJourneyByUserID(user.getUserID());
+        Location
+        travelloRepository.addJourneyPart(title,text,startDate,endDate,journey.getJourneyID(), location.location_ID);
 
         return new ModelAndView("error");
     }
