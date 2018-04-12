@@ -28,8 +28,8 @@
                                 <li><a href="signin" class="text-black">Sign in</a></li>
                                 <li><a href="registerUser" class="text-black">Register</a></li>
                             </div>
-                            <li><a href="journeyform" class="text-black">+ Add journey</a></li>
-                            <li><a href="#" class="text-black">Contact</a></li>
+                            <li><a href="journeyform" th:if="${session.user}" class="text-black">Share journey</a></li>
+                            <li><a href="contact" class="text-black">Contact</a></li>
                         </ul>
                     </div>
                 </div>

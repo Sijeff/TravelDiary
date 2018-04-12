@@ -27,13 +27,16 @@ public class TravelloController {
     public ModelAndView index() {
         return new ModelAndView("index");
     }
+    @GetMapping("contact")
+    public ModelAndView contact() {
+        return new ModelAndView("contact");
+    }
 
     @PostMapping("journeyform")
     public ModelAndView addJourney() {
         System.out.println("Lägg till ny resa");
         return new ModelAndView("error");
     }
-
 
     @GetMapping("registerUser")
     public ModelAndView gotoRegister() {
@@ -55,7 +58,6 @@ public class TravelloController {
         return new ModelAndView("journeys").addObject("journeys",travelloRepository.listJourneys());
     }
 
-
     @GetMapping ("/journey/{journeyID}/")
     public ModelAndView listJourneyParts(@PathVariable int journeyID) {
         Journey journey = travelloRepository.getJourney(journeyID);
@@ -63,7 +65,6 @@ public class TravelloController {
                 .addObject("journey", journey)
                 .addObject("journeyParts", travelloRepository.getJourneyPart(journey));
     }
-
 
     @PostMapping("/registerUser")
     public ModelAndView regUser(HttpSession session,@RequestParam String name, @RequestParam String email, @RequestParam String password, @RequestParam Date birthday) {
@@ -99,7 +100,6 @@ public class TravelloController {
             travelloRepository.addUser(name, email, password, birthday, regDate);
         }
         return new ModelAndView("index").addObject("user", name);
-
     }
 
     @PostMapping("signin")
