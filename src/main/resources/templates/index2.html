@@ -164,7 +164,7 @@
 
 
 <div id="latlng" th:each="locationz : ${locations}">
-    <p class="latlngclass" th:href="@{./{locationID}/(locationID=${locationz.locationID})}" th:text="'{ &quotlat&quot:&quot'${locationz.lat}'&quot, &quotlng&quot:&quot'${locationz.lng}'&quot}'" />
+    <p class="latlngclass" th:href="@{./{locationID}/(locationID=${locationz.locationID})}" th:text="${locationz.lat} +' '+ ${locationz.lat}" />
 </div>
 
 
@@ -182,8 +182,9 @@
             // latlngarray.add(myNodelist[i]);
             // latlngarray[i] = myNodelist[i];
 
-            var obj = JSON.parse(myNodelist[i].innerHTML);
-            latlngarray.push(obj);
+            //var obj = JSON.parse(myNodelist[i].innerHTML);
+            latlngarray.push(myNodelist[i].innerHTML)
+            //latlngarray.push(obj);
             console.log(i + "  - " + myNodelist[i].innerHTML);
 
         }
