@@ -66,78 +66,7 @@
         <div class="container">
 
 
-            <script>
-
-                var locationsPre = [];
-/*                var locationsPre = [{
-                    lat: 59.9138688,
-                    lng: 10.752245399999993
-                }, {
-                    lat: 55.604981,
-                    lng: 13.003822000000014
-                }, {
-                    lat: 58.9699756,
-                    lng: 5.733107399999994
-                }, {
-                    lat: 55.6760968,
-                    lng: 12.568337199999974
-                }, {
-                    lat: 60.16985569999999,
-                    lng: 24.93837910000002
-                }, {
-                    lat: 50.0755381,
-                    lng: 14.43780049999998
-                }, {
-                    lat: 56.9496487,
-                    lng: 24.105186499999945
-                }]*/
-
-
-                var locations = []
-
-                function populateLocations() {
-                    for (var i = 0; i < locationsPre.length; i++)
-                        locations.push(locationsPre[i]);
-                }
-
-                populateLocations();
-
-                function initMap() {
-
-                    var map = new google.maps.Map(document.getElementById('map'), {
-                        zoom: 3,
-                        center: {
-                            lat: 55.604981,
-                            lng: 13.003822000000014
-                        }
-                    });
-
-                    // Create an array of alphabetical characters used to label the markers.
-                    var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-                    // Add some markers to the map.
-                    // Note: The code uses the JavaScript Array.prototype.map() method to
-                    // create an array of markers based on a given "locations" array.
-                    // The map() method here has nothing to do with the Google Maps API.
-                    var markers = locations.map(function (location, i) {
-                        return new google.maps.Marker({
-                            position: location,
-                            label: labels[i % labels.length]
-                        });
-                    });
-
-                    // Add a marker clusterer to manage the markers.
-                    var markerCluster = new MarkerClusterer(map, markers, {
-                        imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
-                    });
-                }
-
-
-            </script>
             <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
-            </script>
-            <script async defer
-                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBreoQlpyGMcRteGhBXkHnZrmv8F8QhRC8&callback=initMap">
             </script>
 
 
@@ -163,56 +92,47 @@
 </footer>
 
 
-<div id="latlng" th:each="locationz : ${locations}">
-    <p class="latlngclass" th:href="@{./{locationID}/(locationID=${locationz.locationID})}" th:text="'{ &quotlat&quot:&quot'${locationz.lat}'&quot, &quotlng&quot:&quot'${locationz.lng}'&quot}'" />
+<div id="latlng" hidden th:each="locationz : ${locations}">
+    <p class="latlngclass" th:href="@{./{locationID}/(locationID=${locationz.locationID})}"
+       th:text="'{ &quotlat&quot:'+${locationz.lat}+', '+ '&quotlng&quot:'+${locationz.lng}+'}'"/>
 </div>
 
 
 <script>
-    var far = document.getElementById("latlng");
     var latlngarray = [];
-
-    var latlngfunc = function() {
-
-
-
+    var myNodelist = document.querySelectorAll(".latlngclass");
+    var i;
+    for (i = 0; i < myNodelist.length; i++) {
         var myNodelist = document.querySelectorAll(".latlngclass");
         var i;
         for (i = 0; i < myNodelist.length; i++) {
-            // latlngarray.add(myNodelist[i]);
-            // latlngarray[i] = myNodelist[i];
-
-            var obj = JSON.parse(myNodelist[i].innerHTML);
-            latlngarray.push(obj);
-            console.log(i + "  - " + myNodelist[i].innerHTML);
-
+            latlngarray.push(JSON.parse(myNodelist[i].innerHTML))
+            // console.log(latlngarray[i]);
         }
-
-
-/*        latlngarray = Array.from(children);
-        console.log(latlngarray.toString());*/
-
-
-/*        for (e in latlngarray)
-        {
-            console.log(e.valueOf());
-        }*/
-    };
-    latlngfunc();
-
-    var markers = latlngarray.map(function (location, i) {
-        return new google.maps.Marker({
-            position: location,
-            label: labels[i % labels.length]
+    }
+    function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 3,
+            center: {
+                lat: 55.604981,
+                lng: 13.003822000000014
+            }
         });
-    });
-    markers();
+        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        var markers = latlngarray.map(function (location, i) {
+            return new google.maps.Marker({
+                position: location,
+                label: labels[i % labels.length]
+            });
+        });
+        var markerCluster = new MarkerClusterer(map, markers, {
+            imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+        });
+    }
 </script>
 
 
-<script src="script/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+<script src="script/jquery-3.3.1.slim.min.js"></script>
 <script>
     window.jQuery || document.write('<script src="script/jquery-slim.min.js"><\/script>')
 </script>
