@@ -40,13 +40,16 @@ public class TravelloController {
 
         String username = (String) session.getAttribute("user");
         User user = travelloRepository.getUser(username);
-        travelloRepository.addJourney(title,user);
+        Journey journey = travelloRepository.addJourney(title,user);
+        if(journey == null){
+            throw new NullPointerException("Journey was not initialized correctly");
+        }
 
         if(!travelloRepository.verifyLocation(placeName,country)){
             travelloRepository.addLocation(placeName,country,lng,lat);
         }
 
-        Journey journey = travelloRepository.getJourneyByUserID(user.getUserID());
+        //Journey journey = travelloRepository.getJourneyByUserID(user.getUserID());
         Location location = travelloRepository.getLocation(placeName,country);
         travelloRepository.addJourneyPart(title,text,startDate,endDate,journey.getJourneyID(), location.getLocationID());
 
