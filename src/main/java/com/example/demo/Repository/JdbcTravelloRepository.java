@@ -48,14 +48,15 @@ public class JdbcTravelloRepository implements TravelloRepository {
     }
 
     @Override
-    public void addJourneyPart(String title, String text, Date startDate, Date endDate, int journey_ID) {
+    public void addJourneyPart(String title, String text, Date startDate, Date endDate, int journey_ID, int location_ID) {
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("INSERT INTO users(title, text, startDate, endDate, journey_ID) VALUES (?,?,?,?,?) ")) {
+             PreparedStatement ps = conn.prepareStatement("INSERT INTO users(title, text, startDate, endDate, journey_ID, location_ID) VALUES (?,?,?,?,?,?) ")) {
             ps.setString(1, title);
             ps.setString(2, text);
             ps.setDate(3, startDate);
             ps.setDate(4, endDate);
             ps.setInt(5, journey_ID);
+            ps.setInt(6,location_ID);
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new TravelloRepositoryException(e);
@@ -63,14 +64,13 @@ public class JdbcTravelloRepository implements TravelloRepository {
     }
 
     @Override
-    public void addLocation(String placeName, String country, int journeyParts_id, float lng, float lat) {
+    public void addLocation(String placeName, String country, float lng, float lat) {
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("INSERT INTO journeys(placeName, country, journeyParts_id) VALUES (?,?,?,?,?) ")) {
+             PreparedStatement ps = conn.prepareStatement("INSERT INTO journeys(placeName, country, lng, lat) VALUES (?,?,?,?) ")) {
             ps.setString(1, placeName);
             ps.setString(2, country);
-            ps.setInt(3,journeyParts_id);
-            ps.setFloat(4,lng);
-            ps.setFloat(5,lat);
+            ps.setFloat(3,lng);
+            ps.setFloat(4,lat);
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new TravelloRepositoryException(e);

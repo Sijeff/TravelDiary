@@ -37,8 +37,13 @@ public class TravelloController {
         User user = travelloRepository.getUser(username);
 
         travelloRepository.addJourney(title,user);
-        travelloRepository.addLocation(placeName,country,journeyPart.journeypartid,lng,lat);
-        travelloRepository.addJourneyPart(title,text,startDate,endDate,journey.journey_ID);
+        if(validate if exists placeName, country){
+            travelloRepository.addLocation(placeName,country,lng,lat);
+        }
+
+        User user = travelloRepository.getJourneyByUserID()
+        //skapa journey-objekt utifrån user-id
+        travelloRepository.addJourneyPart(title,text,startDate,endDate,journey.journey_ID, location.location_ID);
 
         return new ModelAndView("error");
     }
