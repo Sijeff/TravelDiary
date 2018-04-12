@@ -37,8 +37,13 @@ public class TravelloController {
     }
 
     @GetMapping("signin")
-    public ModelAndView gotoSignin(){
+    public ModelAndView gotoSignin() {
         return new ModelAndView("signin");
+    }
+    @GetMapping("/journey/")
+    public ModelAndView listJourneys(){
+        return new ModelAndView("journeys");
+
     }
 
     @PostMapping("/registerUser")
