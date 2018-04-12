@@ -55,11 +55,19 @@ public class TravelloController {
         return new ModelAndView("journeys").addObject("journeys",travelloRepository.listJourneys());
     }
 
-    @GetMapping ("/journey/{journeyID}")
+//    @GetMapping ("/journey/{journeyID}")
+//    public ModelAndView listJourneyParts(@PathVariable int journeyID) {
+//        Journey journey = travelloRepository.getJourney(journeyID);
+//        return new ModelAndView("journey/journeyParts")
+//                .addObject("journeys", journey)
+//                .addObject("journeyParts", travelloRepository.getJourneyPart(journey));
+//    }
+
+    @GetMapping ("/journey/{journeyID}/")
     public ModelAndView listJourneyParts(@PathVariable int journeyID) {
         Journey journey = travelloRepository.getJourney(journeyID);
-        return new ModelAndView("journey/journeyParts")
-                .addObject("journeys", journey)
+        return new ModelAndView("journey")
+                .addObject("journey", journey)
                 .addObject("journeyParts", travelloRepository.getJourneyPart(journey));
     }
 

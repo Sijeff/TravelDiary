@@ -131,8 +131,8 @@ public class JdbcTravelloRepository implements TravelloRepository {
     @Override
     public List<JourneyPart> getJourneyPart(Journey journey) {
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("SELECT startDate, endDate, title, text " +
-                     "FROM journeyParts WHERE journey_ID = ? ORDER BY startDate DESC")) {
+             PreparedStatement ps = conn.prepareStatement("SELECT journeyPartID, startDate, endDate, journey_ID, " +
+                     "title, text FROM journeyParts WHERE journey_ID = ? ORDER BY startDate DESC")) {
             ps.setInt(1, journey.getJourneyID());
             ResultSet rs = ps.executeQuery();
             List<JourneyPart> journeyParts = new ArrayList<>();
@@ -147,7 +147,7 @@ public class JdbcTravelloRepository implements TravelloRepository {
     public Journey getJourney(int journeyID) {
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement("SELECT *" +
-                     "FROM journeys WHERE journey_ID = ?")) {
+                     "FROM journeys WHERE journeyID = ?")) {
             ps.setInt(1, journeyID);
             ResultSet rs = ps.executeQuery();
             if (!rs.next()) {
