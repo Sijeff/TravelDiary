@@ -49,7 +49,6 @@ public class TravelloController {
             travelloRepository.addLocation(placeName,country,lng,lat);
         }
 
-        //Journey journey = travelloRepository.getJourneyByUserID(user.getUserID());
         Location location = travelloRepository.getLocation(placeName,country);
         travelloRepository.addJourneyPart(title,text,startDate,endDate,journey.getJourneyID(), location.getLocationID());
 
@@ -71,8 +70,13 @@ public class TravelloController {
     }
 
     @GetMapping("journeyform")
-    public ModelAndView gotoJourneyform() {
-        return new ModelAndView("journeyform");
+    public ModelAndView gotoJourneyform(HttpSession session) {
+        if (session.getAttribute("user") != null){
+            return new ModelAndView("journeyform");
+        }else{
+            return new ModelAndView("signin");
+        }
+
     }
 
     @GetMapping("signin")
