@@ -24,6 +24,11 @@ public class TravelloController {
         return new ModelAndView("index");
     }
 
+    @PostMapping("journeyform")
+    public ModelAndView addJourney() {
+        System.out.println("Lägg till ny resa");
+        return new ModelAndView("error");
+    }
 
 
     @GetMapping("registerUser")
