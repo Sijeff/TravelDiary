@@ -52,14 +52,16 @@
     </div>
 </header>
 <div class="content">
+
     <form action="index" method="post" id="submitjourney">
         <div class="form-group">
             <div class="form-group col-md-6">
-                <label for="exampleFormControlInput1">Title</label>
+                <label for="title">Title</label>
                 <input name="title" id="title" type="text" class="form-control" placeholder="Describe your journey in a few words" required>
+
             </div>
             <div class="form-group col-md-6">
-                <label for="exampleFormControlSelect1">Where did you travel?</label>
+                <label for="location">Where did you travel?</label>
                 <input id="location" class="form-control" placeholder="Where did you travel?" type="text"></input>
             </div>
         </div>
@@ -75,8 +77,10 @@
         </div>
         <div class="form-group">
             <div class="form-group col-md-8">
-                <label for="exampleFormControlInput1">Description</label>
+
+                <label for="comment">Description</label>
                 <textarea name="text" class="form-control" rows="8" id="comment" placeholder="What did you experience?"></textarea>
+
             </div>
         </div>
         <div class="form-group">
@@ -86,13 +90,11 @@
         </div>
 
 
-
-        <input name="placeName" id="locality" disabled="true"></input>
-        <input name="country" id="country" disabled="true"></input>
-        <input name="lat" id="lat" disabled="true"></input>
-        <input name="lng" id="lng" disabled="true"></input>
-
-
+        <input name="placeName" id="locality" disabled="true">
+        <input name="country" id="country" disabled="true">
+        < name="lat" id="lat" disabled="true">
+        <input name="lng" id="lng" disabled="true">
+        
     </form>
     <button id="SubmitKnappen">Submit</button>
     <button id="late">Lat</button>

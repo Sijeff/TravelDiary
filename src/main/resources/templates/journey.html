@@ -1,0 +1,21 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <title th:text="${journey.title}"></title>
+</head>
+<body>
+    <h1 th:text="${journey.title}" />
+    <article th:each="journeyPart : ${journeyParts}">
+            <h2 th:text="${journeyPart.title}" />
+            <time th:datetime="${journeyPart.entryDate}" th:text="${journeyPart.entryDate.toLocalDate()}"/>
+            <p th:text="${journeyPart.text}"/>
+    </article>
+
+    <form action="">
+        <button class="btn btn-primary my-2">Like this post</a>
+    </form>
+
+</body>
