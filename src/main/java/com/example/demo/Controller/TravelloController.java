@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Domain.Journey;
+import com.example.demo.Domain.Location;
 import com.example.demo.Domain.User;
 import com.example.demo.Repository.TravelloRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,10 +43,10 @@ public class TravelloController {
         }
 
         Journey journey = travelloRepository.getJourneyByUserID(user.getUserID());
-        Location
-        travelloRepository.addJourneyPart(title,text,startDate,endDate,journey.getJourneyID(), location.location_ID);
+        Location location = travelloRepository.getLocation(placeName,country);
+        travelloRepository.addJourneyPart(title,text,startDate,endDate,journey.getJourneyID(), location.getLocationID());
 
-        return new ModelAndView("error");
+        return new ModelAndView("index");
     }
 
 

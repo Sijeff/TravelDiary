@@ -24,4 +24,5 @@ public interface TravelloRepository {
     User getUser(String username);
     User getUserByJourney(Journey journey);
     Journey getJourneyByUserID(int user_ID);
+    Location getLocation(String placeName, String country);
 }
