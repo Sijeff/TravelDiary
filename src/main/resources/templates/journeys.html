@@ -22,7 +22,6 @@
 
                         <div th:if="${session.user}">
                             <a href="logout" class="text-black">Log out </a>
-                            <h3 text="'Welcome ' + ${session.user}" class="text-black"></h3>
                         </div>
                         <div th:if="${session.user==null}">
                             <li><a href="/signin" class="text-black">Sign in</a></li>
@@ -54,13 +53,29 @@
     </div>
 </header>
     <h1>Pick a story to learn more and be inspired!</h1>
-    <article th:each="journey : ${journeys}">
-        <header>
-            <h2>
-                <a th:href="@{./{journeyID}/(journeyID=${journey.journeyID})}" th:text="${journey.title}" />
-            </h2>
-        </header>
-    </article>
+    <!--<article th:each="journey : ${journeys}">-->
+        <!--<header>-->
+            <!--<h2>-->
+                <!--<a th:href="@{./{journeyID}/(journeyID=${journey.journeyID})}" th:text="${journey.title}" />-->
+            <!--</h2>-->
+        <!--</header>-->
+
+        <div class="album py-5" id="album">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-md-4" th:each="journey : ${journeys}">
+                        <div class="card mb-4 box-shadow">
+                            <!--<img class="card-img-top" src="https://picsum.photos/200/125/?image=1048" alt="Card image cap">-->
+                            <div class="card-body" >
+                                <a class="card-text" th:href="@{./{journeyID}/(journeyID=${journey.journeyID})}" th:text="${journey.title}"  />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!--</article>-->
     <!-- Bootstrap core JavaScript
                ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

@@ -22,7 +22,6 @@
 
                         <div th:if="${session.user}">
                             <a href="logout" class="text-black">Log out </a>
-                            <h3 text="'Welcome ' + ${session.user}" class="text-black"></h3>
                         </div>
                         <div th:if="${session.user==null}">
                             <li><a href="signin" class="text-black">Sign in</a></li>

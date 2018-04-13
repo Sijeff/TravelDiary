@@ -18,14 +18,13 @@
                     <ul class="list-unstyled">
                         <div th:if="${session.user}">
                             <a href="logout" class="text-black">Log out </a>
-                            <h3 text="'Welcome ' + ${session.user}" class="text-black"></h3>
                         </div>
                         <div th:if="${session.user==null}">
                             <li><a href="signin" class="text-black">Sign in</a></li>
                             <li><a href="registerUser" class="text-black">Register</a></li>
                         </div>
                         <li><a href="journeyform" th:if="${session.user}" class="text-black">Share journey</a></li>
-                        <li><a href="contact" class="text-black">Contact</a></li>
+                        <!--<li><a href="contact" class="text-black">Contact</a></li>-->
                     </ul>
                 </div>
             </div>

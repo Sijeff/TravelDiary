@@ -22,7 +22,6 @@
 
                             <div th:if="${session.user}">
                                 <a href="logout" class="text-black">Log out </a>
-                                <h3 text="'Welcome ' + ${session.user}" class="text-black"></h3>
                             </div>
                             <div th:if="${session.user==null}">
                                 <li><a href="signin" class="text-black">Sign in</a></li>
@@ -59,7 +58,7 @@
         <section class="jumbotron text-center" id="jumbotron">
             <div class="container">
                 <h1 th:if="${session.user==null}" class="jumbotron-heading">Welcome to Travello!</h1>
-                <h1 th:if="${session.user}" class="jumbotron-heading" th:text="Welcome +' ' + ${session.user}"></h1>
+                <h1 th:if="${session.user}" class="jumbotron-heading" th:text="'Share your Journey, ' + ${session.user}"></h1>
                 <p class="lead text-muted">Tell others about what you've experienced and get inspiration for your next journey</p>
                 <p>
                     <a th:if="${session.user==null}" href="signin" class="btn btn-primary my-2" id="signin">Sign in to share your journey</a>

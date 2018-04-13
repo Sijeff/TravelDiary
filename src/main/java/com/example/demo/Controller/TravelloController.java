@@ -91,11 +91,14 @@ public class TravelloController {
         return new ModelAndView("signin");
     }
 
+//    @GetMapping("/journey/")
+//    public ModelAndView listJourneys() {
+//        return new ModelAndView("journeys").addObject("journeys", travelloRepository.listJourneys());
+//    }
     @GetMapping("/journey/")
-    public ModelAndView listJourneys() {
+    public ModelAndView cardListJourneys() {
         return new ModelAndView("journeys").addObject("journeys", travelloRepository.listJourneys());
     }
-    
     @GetMapping("/journey/{journeyID}")
     public ModelAndView listJourneyParts(@PathVariable int journeyID) {
         Journey journey = travelloRepository.getJourney(journeyID);
