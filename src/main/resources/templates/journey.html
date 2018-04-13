@@ -55,6 +55,7 @@
             <h1 class="display-8 font-italic" th:text="${journey.title}"/>
             <article th:each="journeyPart : ${journeyParts}">
                 <em><time th:datetime="${journeyPart.startDate}" th:text="${journeyPart.startDate.toLocalDate()}"/>
+                    <span> to </span>
                     <time th:datetime="${journeyPart.endDate}" th:text="${journeyPart.endDate.toLocalDate()}"/></em>
                 <p class="lead my-3" th:text="${journeyPart.text}"/>
                 <em><h6 th:text="${user.name}"/></em>
