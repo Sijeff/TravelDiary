@@ -49,7 +49,7 @@ public class JdbcTravelloRepository implements TravelloRepository {
                 select.setString(1, title);
                 select.setInt(2, user.getUserID());
                 ResultSet rs = select.executeQuery();
-                if(rs.next()) {
+                if (rs.next()) {
                     return objJourney(rs);
                 }
             }
@@ -68,7 +68,7 @@ public class JdbcTravelloRepository implements TravelloRepository {
             ps.setDate(3, startDate);
             ps.setDate(4, endDate);
             ps.setInt(5, journey_ID);
-            ps.setInt(6,location_ID);
+            ps.setInt(6, location_ID);
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new TravelloRepositoryException(e);
@@ -81,8 +81,8 @@ public class JdbcTravelloRepository implements TravelloRepository {
              PreparedStatement ps = conn.prepareStatement("INSERT INTO locations(placeName, country, lng, lat) VALUES (?,?,?,?) ")) {
             ps.setString(1, placeName);
             ps.setString(2, country);
-            ps.setFloat(3,lng);
-            ps.setFloat(4,lat);
+            ps.setFloat(3, lng);
+            ps.setFloat(4, lat);
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new TravelloRepositoryException(e);
@@ -123,6 +123,7 @@ public class JdbcTravelloRepository implements TravelloRepository {
         }
         return false;
     }
+
     @Override
     public boolean checkUniqueUsername(String username) {
         try (Connection conn = dataSource.getConnection();
@@ -220,7 +221,7 @@ public class JdbcTravelloRepository implements TravelloRepository {
     }
 
     @Override
-    public User getUserByJourney(Journey journey){
+    public User getUserByJourney(Journey journey) {
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement("SELECT *" +
                      "FROM users WHERE userID = ?")) {
@@ -296,8 +297,6 @@ public class JdbcTravelloRepository implements TravelloRepository {
                 rs.getInt("userID")
         );
     }
-
-
 
 
     @Override
