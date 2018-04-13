@@ -72,52 +72,6 @@
         </div>
     </header>
 
-    <main role="main">
-
-        <section class="jumbotron text-center" id="jumbotron">
-            <div class="container">
-                <h1 th:if="${session.user==null}" class="jumbotron-heading">Welcome to Travello!</h1>
-                <h1 th:if="${session.user}" class="jumbotron-heading" th:text="'Share your Journey, ' + ${session.user}"></h1>
-                <p class="lead text-muted">Tell others about what you've experienced and get inspiration for your next journey</p>
-                <p>
-                    <a th:if="${session.user==null}" href="signin" class="btn btn-primary my-2" id="signin">Sign in to share your journey</a>
-                    <a th:if="${session.user==null}" href="registerUser" class="btn btn-primary my-2">Register new user</a>
-                    <a href="/journey/" class="btn btn-primary my-2">See all travel stories</a>
-                    <a th:if="${session.user}" href="/journeyform/" class="btn btn-primary my-2">Share your journey</a>
-                </p>
-            </div>
-        </section>
-
-        <div class="album py-5" id="album">
-            <div class="container">
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="card mb-4 box-shadow">
-                            <img class="card-img-top" src="https://picsum.photos/200/125/?image=1048" alt="Card image cap">
-                            <div class="card-body">
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mb-4 box-shadow">
-                            <img class="card-img-top" src="https://picsum.photos/200/125/?image=1049" alt="Card image cap">
-                            <div class="card-body">
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mb-4 box-shadow">
-                            <img class="card-img-top" src="https://picsum.photos/200/125/?image=1040" alt="Card image cap">
-                            <div class="card-body">
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            </div>
-                        </div>
-                    </div>
-
-
 <main role="main">
 
     <section class="jumbotron2 text-center" id="jumbotron">
