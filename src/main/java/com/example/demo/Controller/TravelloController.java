@@ -6,6 +6,7 @@ import com.example.demo.Domain.User;
 import com.example.demo.Repository.TravelloRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -103,7 +104,6 @@ public class TravelloController {
                 .addObject("user", travelloRepository.getUserByJourney(journey))
                 .addObject("journeyParts", travelloRepository.getJourneyPart(journey));
     }
-
     @PostMapping("/registerUser")
     public ModelAndView regUser(HttpSession session,@RequestParam String name, @RequestParam String email, @RequestParam String password, @RequestParam Date birthday) {
         if (!email.toUpperCase().matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$")){
