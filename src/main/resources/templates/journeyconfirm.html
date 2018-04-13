@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Travello</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/signin.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+
+
+<header>
+    <div class="collapse bg-light" id="navbarHeader">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4 py-4">
+                    <ul class="list-unstyled">
+                        <li><a href="signin" class="text-black">Sign in</a></li>
+                        <li><a href="journeyform" class="text-black">+ Add journey</a></li>
+                        <li><a href="contact" class="text-black">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navbar navbar-light bg-light box-shadow">
+        <div class="container d-flex justify-content-between">
+            <a href="index" class="navbar-brand d-flex align-items-center">
+                <img src="TravelloLogo.png" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                <strong>Travello</strong>
+            </a>
+
+            <form class="form-inline mt-2 mt-md-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search">Search</button>
+            </form>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </div>
+</header>
+
+
+<h1 class="text-center" style="margin-top:10%">Thanks for your submission</h1>
+<p class="text-center">Redirecting you to the homepage...</p>
+
+<script src="script/jquery-3.3.1.slim.min.js"></script>
+<script>
+    setTimeout(function(){ location.replace("index") }, 2000);
+    window.jQuery || document.write('<script src="script/jquery-slim.min.js"><\/script>')
+</script>
+<script src="script/popper.min.js"></script>
+<script src="script/bootstrap.min.js"></script>
+<script src="script/holder.min.js"></script>
+</body>
+
+
+
+
+</html>

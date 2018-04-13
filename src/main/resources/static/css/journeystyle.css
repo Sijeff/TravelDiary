@@ -1,0 +1,11 @@
+.mainbody {
+    margin: auto;
+    width: 80%;
+    padding: 40px;
+    text-align: center;
+}
+
+.jumbotron {
+    background-color: rgb(204, 95, 150);
+    color: rgb(255, 235, 245);
+}

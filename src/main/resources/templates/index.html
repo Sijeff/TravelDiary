@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Travello</title>
+
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        div #map {
+            height: 100%;
+            width: 100%;
+        }
+
+        .jumbotron {
+            height: 50vh;
+            /*width: 80%;*/
+        }
+
+        .jumbotron2 {
+            margin-top: 2%;
+
+            height: 30vh;
+            /*width: 80%;*/
+        }
+
+
+    </style>
+</head>
+
+<body>
+<header>
+    <div class="collapse bg-light" id="navbarHeader">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4 py-4">
+                    <ul class="list-unstyled">
+                        <div th:if="${session.user}">
+                            <a href="logout" class="text-black">Log out </a>
+                        </div>
+                        <div th:if="${session.user==null}">
+                            <li><a href="signin" class="text-black">Sign in</a></li>
+                            <li><a href="registerUser" class="text-black">Register</a></li>
+                        </div>
+                        <li><a href="journeyform" th:if="${session.user}" class="text-black">Share journey</a></li>
+                        <li><a href="contact" class="text-black">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navbar navbar-light bg-light box-shadow">
+        <div class="container d-flex justify-content-between">
+            <a href="index" class="navbar-brand d-flex align-items-center">
+                <img src="TravelloLogo.png" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                <strong>Travello</strong>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
+                    aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<main role="main">
+
+    <section class="jumbotron2 text-center" id="jumbotron">
+        <div class="container">
+            <h1 th:if="${session.user==null}" class="jumbotron-heading">Welcome to Travello!</h1>
+            <h1 th:if="${session.user}" class="jumbotron-heading" th:text="Welcome +' ' + ${session.user}"></h1>
+            <p class="lead text-muted">Tell others about what you've experienced and get inspiration for your next
+                journey</p>
+            <p>
+                <a th:if="${session.user==null}" href="signin" class="btn btn-primary my-2" id="signin">Sign in to share
+                    your journey</a>
+                <a th:if="${session.user==null}" href="registerUser" class="btn btn-primary my-2">Register new user</a>
+                <a th:if="${session.user}" href="journeyform" class="btn btn-primary my-2">Share your journey</a>
+                <a href="/journey/" class="btn btn-primary my-2">See all travel stories</a>
+            </p>
+        </div>
+    </section>
+
+
+    <section id="map" class="jumbotron text-center">
+        <div class="container">
+            <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+            </script>
+        </div>
+    </section>
+
+
+    <div class="album py-5" id="album">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-4" th:each="journey : ${journeys}">
+                    <div class="card mb-4 box-shadow">
+                        <!--<img class="card-img-top" src="https://picsum.photos/200/125/?image=1048" alt="Card image cap">-->
+                        <div class="card-body">
+                            <a class="card-text" th:href="@{journey/{journeyID}/(journeyID=${journey.journeyID})}"
+                               th:text="${journey.title}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<footer class="text-muted">
+    <div class="container">
+        <p class="float-right">
+            <a href="#">Back to top</a>
+        </p>
+    </div>
+</footer>
+
+
+<div id="latlng" th:each="locationz : ${locations}">
+    <p hidden class="latlngclass" th:href="@{./{locationID}/(locationID=${locationz.locationID})}"
+       th:text="'{ &quotlat&quot:'+${locationz.lat}+', '+ '&quotlng&quot:'+${locationz.lng}+'}'"/>
+</div>
+
+
+<script>
+    var latlngarray = [];
+    var myNodelist = document.querySelectorAll(".latlngclass");
+    var i;
+    for (i = 0; i < myNodelist.length; i++) {
+        var myNodelist = document.querySelectorAll(".latlngclass");
+        var i;
+        for (i = 0; i < myNodelist.length; i++) {
+            latlngarray.push(JSON.parse(myNodelist[i].innerHTML))
+            // console.log(latlngarray[i]);
+        }
+    }
+
+    function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 3,
+            center: {
+                lat: 55.604981,
+                lng: 13.003822000000014
+            }
+        });
+        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        var markers = latlngarray.map(function (location, i) {
+            return new google.maps.Marker({
+                position: location,
+                label: labels[i % labels.length]
+            });
+        });
+        var markerCluster = new MarkerClusterer(map, markers, {
+            imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+        });
+    }
+</script>
+
+
+<script src="script/jquery-3.3.1.slim.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="script/jquery-slim.min.js"><\/script>')
+</script>
+<script src="script/popper.min.js"></script>
+<script src="script/bootstrap.min.js"></script>
+<script src="script/holder.min.js"></script>
+
+
+<script src="/script/markerclusterer.js">
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBreoQlpyGMcRteGhBXkHnZrmv8F8QhRC8&callback=initMap">
+</script>
+
+
+</body>
+
+</html>

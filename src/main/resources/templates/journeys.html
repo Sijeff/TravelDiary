@@ -1,0 +1,94 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato|Raleway" rel="stylesheet">
+
+    <title>All journeys</title>
+</head>
+
+<body>
+<header>
+    <div class="collapse bg-light" id="navbarHeader">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4 py-4">
+                    <ul class="list-unstyled">
+
+                        <div th:if="${session.user}">
+                            <a href="logout" class="text-black">Log out </a>
+                        </div>
+                        <div th:if="${session.user==null}">
+                            <li><a href="/signin" class="text-black">Sign in</a></li>
+                            <li><a href="/registerUser" class="text-black">Register</a></li>
+                        </div>
+                        <li><a href="/journeyform" th:if="${session.user}" class="text-black">Share journey</a></li>
+                        <li><a href="/contact" class="text-black">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navbar navbar-light bg-light box-shadow">
+        <div class="container d-flex justify-content-between">
+            <a href="../index" class="navbar-brand d-flex align-items-center">
+                <img src="/TravelloLogo.png" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                <strong>Travello</strong>
+            </a>
+
+            <!--<form class="form-inline mt-2 mt-md-0">-->
+                <!--<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
+                <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search">Search</button>-->
+            <!--</form>-->
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </div>
+</header>'
+<div class="text-center">
+    <h1>
+        Pick a story to learn more and be inspired!</h1>
+</div>
+    <!--<article th:each="journey : ${journeys}">-->
+        <!--<header>-->
+            <!--<h2>-->
+                <!--<a th:href="@{./{journeyID}/(journeyID=${journey.journeyID})}" th:text="${journey.title}" />-->
+            <!--</h2>-->
+        <!--</header>-->
+
+        <div class="album py-5" id="album">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-md-4" th:each="journey : ${journeys}">
+                        <div class="card mb-4 box-shadow">
+                            <!--<img class="card-img-top" src="https://picsum.photos/200/125/?image=1048" alt="Card image cap">-->
+                            <div class="card-body" >
+                                <a class="card-text" th:href="@{./{journeyID}/(journeyID=${journey.journeyID})}" th:text="${journey.title}"  />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!--</article>-->
+    <!-- Bootstrap core JavaScript
+               ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/script/jquery-3.3.1.slim.min.js"></script>
+    <script>
+        window.jQuery || document.write('<script src="/script/jquery-slim.min.js"><\/script>')
+    </script>
+    <script src="/script/popper.min.js"></script>
+    <script src="/script/bootstrap.min.js"></script>
+    <script src="/script/holder.min.js"></script>
+</body>
+
+</html>

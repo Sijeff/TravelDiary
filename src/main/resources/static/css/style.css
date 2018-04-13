@@ -1,0 +1,44 @@
+body {
+    background-color: #FFEBF5;
+}
+
+h1 {
+    text-shadow: 1px 1px rgb(216, 211, 211);
+    font-family: 'Raleway', serif;
+}
+
+p {
+    font-family: 'Lato', sans-serif;
+}
+
+.topnav {
+    overflow: hidden;
+    background-color: #CC5F96;
+    display: flex;
+    flex-direction: row;
+}
+
+.topnav a {
+    color: rgb(0, 0, 0);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+}
+
+.topnav a:hover {
+    background-color: #FFB1D9;
+    color: black;
+}
+
+#jumbotron, #album {
+    background-color: #FFEBF5;
+    color: #CC5F96;
+}
+
+#search, #signin {
+    background-color: #FFEBF5;
+    color: #CC5F96;
+}
+

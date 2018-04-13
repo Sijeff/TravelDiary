@@ -1,0 +1,20 @@
+
+
+div.text-center {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    display: -ms-flexbox;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 100%;
+    max-width: 150px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #FFEBF5;
+}
+
+.contactinfo {
+    display: flex;
+    justify-content: center;
+}

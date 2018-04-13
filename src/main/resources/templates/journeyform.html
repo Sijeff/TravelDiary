@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://w3.org/1999/xhtml" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/journeyform.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBreoQlpyGMcRteGhBXkHnZrmv8F8QhRC8&libraries=places&callback=initAutocomplete" async defer></script>-->
+    <title>Travello - Share your journey!</title>
+</head>
+
+<body>
+<header>
+    <div class="collapse bg-light" id="navbarHeader">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4 py-4">
+                    <ul class="list-unstyled">
+
+                        <div th:if="${session.user}">
+                            <a href="logout" class="text-black">Log out </a>
+                        </div>
+                        <div th:if="${session.user==null}">
+                            <li><a href="/signin" class="text-black">Sign in</a></li>
+                            <li><a href="/registerUser" class="text-black">Register</a></li>
+                        </div>
+                        <li><a href="/journeyform" th:if="${session.user}" class="text-black">Share journey</a></li>
+                        <li><a href="/contact" class="text-black">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navbar navbar-light bg-light box-shadow">
+        <div class="container d-flex justify-content-between">
+            <a href="index" class="navbar-brand d-flex align-items-center">
+                <img src="/TravelloLogo.png" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                <strong>Travello</strong>
+            </a>
+
+            <!--<form class="form-inline mt-2 mt-md-0">-->
+                <!--<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
+                <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search">Search</button>-->
+            <!--</form>-->
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </div>
+</header>
+<div class="content">
+
+    <form action="#" method="POST" id="submitjourney">
+        <div class="form-group">
+            <div class="form-group col-md-6">
+                <label for="title">Title</label>
+                <input name="title" id="title" type="text" class="form-control" placeholder="Describe your journey in a few words" required>
+
+            </div>
+            <div class="form-group col-md-6">
+                <label for="location">Where did you travel?</label>
+                <input id="location" class="form-control" placeholder="Where did you travel?" type="text" required></input>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-group col-md-2">
+                <label for="enddate">Your journey started on:</label>
+                <input name="startDate" id="startdate" type="date" required>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="startdate">Your journey ended on:</label>
+                <input name="endDate" id="enddate" type="date" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-group col-md-8">
+
+                <label for="comment">Description</label>
+                <textarea name="text" class="form-control" rows="8" id="comment" placeholder="What did you experience?" required></textarea>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-group col-md-8">
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+        </div>
+
+
+        <input style="display: none;" name="placeName" id="locality" disabled="true">
+        <input style="display: none;" name="country" id="country" disabled="true">
+        <input style="display: none;" name="lat" id="lat" disabled="true">
+        <input style="display: none;" name="lng" id="lng" disabled="true">
+
+    </form>
+    <button style="display: none;" id="SubmitKnappen">Submit</button>
+    <button style="display: none;" id="late">Lat</button>
+</div>
+
+
+<script src="/script/jquery-slim.min.js"></script>
+<script src="/script/popper.min.js"></script>
+<script src="/script/bootstrap.min.js"></script>
+<script src="/script/holder.min.js"></script>
+<script src="/script/script.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBreoQlpyGMcRteGhBXkHnZrmv8F8QhRC8&libraries=places&callback=initAutocomplete" async defer></script>
+
+</body>
+
+
+</html>
