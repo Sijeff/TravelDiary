@@ -82,6 +82,7 @@
             <p>
                 <a th:if="${session.user==null}" href="signin" class="btn btn-primary my-2" id="signin">Sign in to share your journey</a>
                 <a th:if="${session.user==null}" href="registerUser" class="btn btn-primary my-2">Register new user</a>
+                <a th:if="${session.user}" href="journeyform" class="btn btn-primary my-2">Share your journey</a>
                 <a href="/journey/" class="btn btn-primary my-2">See all travel stories</a>
             </p>
         </div>
