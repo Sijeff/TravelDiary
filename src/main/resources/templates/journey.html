@@ -51,18 +51,13 @@
     </div>
 </header>
     <h1 th:text="${journey.title}" />
-    <h2>
-        <a th:href="@{./user/{user.name}/(userName=${user.name})}" th:text="${user.name}" />
-    </h2>
+    <h2 th:text="${user.name}" />
     <article th:each="journeyPart : ${journeyParts}">
             <h2 th:text="${journeyPart.title}" />
             <time th:datetime="${journeyPart.startDate}" th:text="${journeyPart.startDate.toLocalDate()}"/>
             <p th:text="${journeyPart.text}"/>
     </article>
 
-    <form action="">
-        <button class="btn btn-primary my-2">Like this post</button>
-    </form>
     <!-- Bootstrap core JavaScript
                ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
