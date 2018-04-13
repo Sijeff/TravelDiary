@@ -20,6 +20,13 @@
             /*width: 80%;*/
         }
 
+        .jumbotron2 {
+            margin-top: 2%;
+
+            height: 30vh;
+            /*width: 80%;*/
+        }
+
 
     </style>
 </head>
@@ -72,7 +79,7 @@
 
 <main role="main">
 
-    <section class="jumbotron text-center" id="jumbotron">
+    <section class="jumbotron2 text-center" id="jumbotron">
         <div class="container">
             <h1 th:if="${session.user==null}" class="jumbotron-heading">Welcome to Travello!</h1>
             <h1 th:if="${session.user}" class="jumbotron-heading" th:text="Welcome +' ' + ${session.user}"></h1>
