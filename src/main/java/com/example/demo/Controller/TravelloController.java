@@ -177,7 +177,7 @@ public class TravelloController {
         cookie.setMaxAge(0);
         res.addCookie(cookie);
         session.invalidate();
-        return "index";
+        return "redirect:index";
     }
 
 
