@@ -81,20 +81,8 @@
 
     <section id="map" class="jumbotron text-center">
         <div class="container">
-
-            <h1 class="jumbotron-heading">Welcome to Travello!</h1>
-            <p class="lead text-muted">Tell others about what you've experienced and get inspiration for your next
-                journey</p>
-            <p>
-                <a href="signin" class="btn btn-primary my-2" id="signin">Sign in to share your journey</a>
-                <a href="registerUser.html" class="btn btn-secondary my-2">Register new user</a>
-            </p>
-
             <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
             </script>
-
-
-
         </div>
     </section>
 
@@ -140,7 +128,7 @@
 
 
 <div id="latlng"  th:each="locationz : ${locations}">
-    <p class="latlngclass" th:href="@{./{locationID}/(locationID=${locationz.locationID})}"
+    <p hidden class="latlngclass" th:href="@{./{locationID}/(locationID=${locationz.locationID})}"
        th:text="'{ &quotlat&quot:'+${locationz.lat}+', '+ '&quotlng&quot:'+${locationz.lng}+'}'"/>
 </div>
 
