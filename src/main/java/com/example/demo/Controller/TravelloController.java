@@ -26,10 +26,11 @@ public class TravelloController {
     @Autowired
     private TravelloRepository travelloRepository;
 
-    @GetMapping("index")
+    @GetMapping("indexOld")
     public ModelAndView index() {
         return new ModelAndView("index");
     }
+
     @GetMapping("contact")
     public ModelAndView contact() {
         return new ModelAndView("contact");
@@ -41,30 +42,34 @@ public class TravelloController {
 
         String username = (String) session.getAttribute("user");
         User user = travelloRepository.getUser(username);
-        Journey journey = travelloRepository.addJourney(title,user);
-        if(journey == null){
+        Journey journey = travelloRepository.addJourney(title, user);
+        if (journey == null) {
             throw new NullPointerException("Journey was not initialized correctly");
         }
 
-        if(!travelloRepository.verifyLocation(placeName,country)){
-            travelloRepository.addLocation(placeName,country,lng,lat);
+        if (!travelloRepository.verifyLocation(placeName, country)) {
+            travelloRepository.addLocation(placeName, country, lng, lat);
         }
 
-        Location location = travelloRepository.getLocation(placeName,country);
-        travelloRepository.addJourneyPart(title,text,startDate,endDate,journey.getJourneyID(), location.getLocationID());
+        Location location = travelloRepository.getLocation(placeName, country);
+        travelloRepository.addJourneyPart(title, text, startDate, endDate, journey.getJourneyID(), location.getLocationID());
 
 
         return new ModelAndView("redirect:journeyconfirm");
     }
 
-    @GetMapping("index2")
+    @GetMapping("index")
     public ModelAndView gotoindex2() {
-        return new ModelAndView("index2").addObject("locations", travelloRepository.getLocations())
+        return new ModelAndView("index").addObject("locations", travelloRepository.getLocations())
                 .addObject("journeys", travelloRepository.listJourneys());
-//        return new ModelAndView("index2");
-
-//        return new ModelAndView("index");
     }
+
+    @GetMapping("/")
+    public ModelAndView gotoempty() {
+        return new ModelAndView("index").addObject("locations", travelloRepository.getLocations())
+                .addObject("journeys", travelloRepository.listJourneys());
+    }
+
 
     @GetMapping("registerUser")
     public ModelAndView gotoRegister() {
@@ -72,15 +77,15 @@ public class TravelloController {
     }
 
     @GetMapping("journeyconfirm")
-    public ModelAndView gotoJourneyConfirm() throws InterruptedException{
+    public ModelAndView gotoJourneyConfirm() throws InterruptedException {
         return new ModelAndView("journeyconfirm");
     }
 
     @GetMapping("journeyform")
-    public ModelAndView gotoJourneyform(HttpSession session ) {
-        if (session.getAttribute("user") != null){
+    public ModelAndView gotoJourneyform(HttpSession session) {
+        if (session.getAttribute("user") != null) {
             return new ModelAndView("journeyform");
-        }else{
+        } else {
             return new ModelAndView("redirect:signin");
         }
 
@@ -99,6 +104,7 @@ public class TravelloController {
     public ModelAndView cardListJourneys() {
         return new ModelAndView("journeys").addObject("journeys", travelloRepository.listJourneys());
     }
+
     @GetMapping("/journey/{journeyID}")
     public ModelAndView listJourneyParts(@PathVariable int journeyID) {
         Journey journey = travelloRepository.getJourney(journeyID);
@@ -107,9 +113,10 @@ public class TravelloController {
                 .addObject("user", travelloRepository.getUserByJourney(journey))
                 .addObject("journeyParts", travelloRepository.getJourneyPart(journey));
     }
+
     @PostMapping("/registerUser")
-    public ModelAndView regUser(HttpSession session,@RequestParam String name, @RequestParam String email, @RequestParam String password, @RequestParam Date birthday) {
-        if (!email.toUpperCase().matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$")){
+    public ModelAndView regUser(HttpSession session, @RequestParam String name, @RequestParam String email, @RequestParam String password, @RequestParam Date birthday) {
+        if (!email.toUpperCase().matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$")) {
             return new ModelAndView("registerUser")
                     .addObject("invalidInput", "Invalid email. Please try again.")
                     .addObject("enteredName", name)
@@ -140,7 +147,7 @@ public class TravelloController {
             session.setAttribute("user", name);
             travelloRepository.addUser(name, email, password, birthday, regDate);
         }
-        return new ModelAndView("index").addObject("user", name);
+        return new ModelAndView("redirect:index").addObject("user", name);
     }
 
     @PostMapping("signin")
@@ -149,9 +156,9 @@ public class TravelloController {
 
             User user = travelloRepository.getUser(username);
             session.setAttribute("user", username);
-            session.setAttribute("userID",user.getUserID());
+            session.setAttribute("userID", user.getUserID());
 
-            return new ModelAndView("index").addObject("user", username);
+            return new ModelAndView("redirect:index").addObject("user", username);
         } else {
             session.removeAttribute("user");
             Cookie cookie = new Cookie("JSESSIONID", null);
@@ -159,7 +166,7 @@ public class TravelloController {
             res.addCookie(cookie);
             session.invalidate();
             return new ModelAndView("signin")
-                    .addObject("invalidUser","Invalid username or password");
+                    .addObject("invalidUser", "Invalid username or password");
         }
     }
 

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/css/bootstrap.css">
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Lato|Raleway" rel="stylesheet">
+    <link rel="stylesheet" href="/css/journeystyle.css"/>
     <title th:text="${journey.title}"></title>
 </head>
 <body>
@@ -39,34 +40,44 @@
             </a>
 
             <!--<form class="form-inline mt-2 mt-md-0">-->
-                <!--<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
-                <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search">Search</button>-->
+            <!--<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
+            <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search">Search</button>-->
             <!--</form>-->
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
+                    aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
         </div>
     </div>
 </header>
-    <h1 th:text="${journey.title}" />
-    <h2 th:text="${user.name}" />
-    <article th:each="journeyPart : ${journeyParts}">
-            <h2 th:text="${journeyPart.title}" />
-            <time th:datetime="${journeyPart.startDate}" th:text="${journeyPart.startDate.toLocalDate()}"/>
-            <p th:text="${journeyPart.text}"/>
-    </article>
 
-    <!-- Bootstrap core JavaScript
-               ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/script/jquery-3.3.1.slim.min.js"></script>
-    <script>
-        window.jQuery || document.write('<script src="/script/jquery-slim.min.js"><\/script>')
-    </script>
-    <script src="/script/popper.min.js"></script>
-    <script src="/script/bootstrap.min.js"></script>
-    <script src="/script/holder.min.js"></script>
+
+<div class="mainbody">
+    <div class="jumbotron p-3 p-md-5 rounded">
+        <div class=" px-0">
+            <h1 class="display-8 font-italic" th:text="${journey.title}"/>
+            <article th:each="journeyPart : ${journeyParts}">
+                <em><time th:datetime="${journeyPart.startDate}" th:text="${journeyPart.startDate.toLocalDate()}"/>
+                    <time th:datetime="${journeyPart.endDate}" th:text="${journeyPart.endDate.toLocalDate()}"/></em>
+                <p class="lead my-3" th:text="${journeyPart.text}"/>
+                <em><h6 th:text="${user.name}"/></em>
+            </article>
+        </div>
+    </div>
+</div>
+
+
+<!-- Bootstrap core JavaScript
+           ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/script/jquery-3.3.1.slim.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="/script/jquery-slim.min.js"><\/script>')
+</script>
+<script src="/script/popper.min.js"></script>
+<script src="/script/bootstrap.min.js"></script>
+<script src="/script/holder.min.js"></script>
 
 </body>
 </html>
