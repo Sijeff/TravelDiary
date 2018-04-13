@@ -54,7 +54,7 @@ public class TravelloController {
         travelloRepository.addJourneyPart(title,text,startDate,endDate,journey.getJourneyID(), location.getLocationID());
 
 
-        return new ModelAndView("error");
+        return new ModelAndView("redirect:journeyconfirm");
     }
 
     @GetMapping("index2")
@@ -69,6 +69,11 @@ public class TravelloController {
     @GetMapping("registerUser")
     public ModelAndView gotoRegister() {
         return new ModelAndView("registerUser");
+    }
+
+    @GetMapping("journeyconfirm")
+    public ModelAndView gotoJourneyConfirm() throws InterruptedException{
+        return new ModelAndView("journeyconfirm");
     }
 
     @GetMapping("journeyform")
