@@ -303,7 +303,9 @@ public class JdbcTravelloRepository implements TravelloRepository {
     @Override
     public List<Location> getLocations() {
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("SELECT * FROM locations")) {
+             PreparedStatement ps = conn.prepareStatement("SELECT locationID, lat, lng, placeName, country FROM journeys\n" +
+                     "INNER JOIN journeyParts ON journeys.journeyID = journeyParts.journey_ID\n" +
+                     "INNER JOIN locations ON locations.locationID = journeyParts.location_ID")) {
             List<Location> locationList = new ArrayList<>();
             ResultSet rs = ps.executeQuery();
             while (rs.next()) locationList.add(objLocations(rs));
