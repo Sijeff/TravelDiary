@@ -26,7 +26,7 @@ public class TravelloController {
     @Autowired
     private TravelloRepository travelloRepository;
 
-    @GetMapping("index")
+    @GetMapping("indexOld")
     public ModelAndView index() {
         return new ModelAndView("index");
     }
@@ -57,9 +57,9 @@ public class TravelloController {
         return new ModelAndView("redirect:journeyconfirm");
     }
 
-    @GetMapping("index2")
+    @GetMapping("index")
     public ModelAndView gotoindex2() {
-        return new ModelAndView("index2").addObject("locations", travelloRepository.getLocations())
+        return new ModelAndView("index").addObject("locations", travelloRepository.getLocations())
                 .addObject("journeys", travelloRepository.listJourneys());
 //        return new ModelAndView("index2");
 

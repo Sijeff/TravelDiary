@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Travello</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato|Raleway" rel="stylesheet">
+
+</head>
+
+<body>
+    <header>
+        <div class="collapse bg-light" id="navbarHeader">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4 py-4">
+                        <ul class="list-unstyled">
+
+                            <div th:if="${session.user}">
+                                <a href="logout" class="text-black">Log out </a>
+                                <h3 text="'Welcome ' + ${session.user}" class="text-black"></h3>
+                            </div>
+                            <div th:if="${session.user==null}">
+                                <li><a href="signin" class="text-black">Sign in</a></li>
+                                <li><a href="registerUser" class="text-black">Register</a></li>
+                            </div>
+                            <li><a href="journeyform" th:if="${session.user}" class="text-black">Share journey</a></li>
+                            <li><a href="contact" class="text-black">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar navbar-light bg-light box-shadow">
+            <div class="container d-flex justify-content-between">
+                <a href="index" class="navbar-brand d-flex align-items-center">
+                    <img src="/TravelloLogo.png" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                    <strong>Travello</strong>
+                </a>
+
+                <!--<form class="form-inline mt-2 mt-md-0">-->
+                    <!--<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
+                    <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search">Search</button>-->
+                <!--</form>-->
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                                      <span class="navbar-toggler-icon"></span>
+                                    </button>
+            </div>
+        </div>
+    </header>
+
+    <main role="main">
+
+        <section class="jumbotron text-center" id="jumbotron">
+            <div class="container">
+                <h1 th:if="${session.user==null}" class="jumbotron-heading">Welcome to Travello!</h1>
+                <h1 th:if="${session.user}" class="jumbotron-heading" th:text="Welcome +' ' + ${session.user}"></h1>
+                <p class="lead text-muted">Tell others about what you've experienced and get inspiration for your next journey</p>
+                <p>
+                    <a th:if="${session.user==null}" href="signin" class="btn btn-primary my-2" id="signin">Sign in to share your journey</a>
+                    <a th:if="${session.user==null}" href="registerUser" class="btn btn-primary my-2">Register new user</a>
+                    <a href="/journey/" class="btn btn-primary my-2">See all travel stories</a>
+                    <a th:if="${session.user}" href="/journeyform/" class="btn btn-primary my-2">Share your journey</a>
+                </p>
+            </div>
+        </section>
+
+        <div class="album py-5" id="album">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow">
+                            <img class="card-img-top" src="https://picsum.photos/200/125/?image=1048" alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow">
+                            <img class="card-img-top" src="https://picsum.photos/200/125/?image=1049" alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow">
+                            <img class="card-img-top" src="https://picsum.photos/200/125/?image=1040" alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow">
+                            <img class="card-img-top" src="https://picsum.photos/200/125/?image=1022" alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow">
+                            <img class="card-img-top" src="https://picsum.photos/200/125/?image=867" alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow">
+                            <img class="card-img-top" src="https://picsum.photos/200/125/?image=887" alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow">
+                            <img class="card-img-top" src="https://picsum.photos/200/125/?image=946" alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow">
+                            <img class="card-img-top" src="https://picsum.photos/200/125/?image=979" alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow">
+                            <img class="card-img-top" src="https://picsum.photos/200/125/?image=994" alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="text-muted">
+        <div class="container">
+            <p class="float-right">
+                <a href="#">Back to top</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+              ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/script/jquery-3.3.1.slim.min.js"></script>
+    <script>
+        window.jQuery || document.write('<script src="/script/jquery-slim.min.js"><\/script>')
+    </script>
+    <script src="/script/popper.min.js"></script>
+    <script src="/script/bootstrap.min.js"></script>
+    <script src="/script/holder.min.js"></script>
+</body>
+
+</html>
