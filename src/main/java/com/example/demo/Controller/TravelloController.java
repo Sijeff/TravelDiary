@@ -148,7 +148,7 @@ public class TravelloController {
             session.setAttribute("user", username);
             session.setAttribute("userID",user.getUserID());
 
-            return new ModelAndView("index").addObject("user", username);
+            return new ModelAndView("redirect:index").addObject("user", username);
         } else {
             session.removeAttribute("user");
             Cookie cookie = new Cookie("JSESSIONID", null);
