@@ -17,7 +17,10 @@
 
         .jumbotron {
             height: 50vh;
+            /*width: 80%;*/
         }
+
+
     </style>
 </head>
 
@@ -40,7 +43,7 @@
     </div>
     <div class="navbar navbar-light bg-light box-shadow">
         <div class="container d-flex justify-content-between">
-            <a href="index.html" class="navbar-brand d-flex align-items-center">
+            <a href="index" class="navbar-brand d-flex align-items-center">
                 <img src="TravelloLogo.png" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
                 <strong>Travello</strong>
@@ -62,13 +65,22 @@
 
 <main role="main">
 
+    <section class="jumbotron text-center" id="jumbotron">
+        <div class="container">
+            <h1 th:if="${session.user==null}" class="jumbotron-heading">Welcome to Travello!</h1>
+            <h1 th:if="${session.user}" class="jumbotron-heading" th:text="Welcome +' ' + ${session.user}"></h1>
+            <p class="lead text-muted">Tell others about what you've experienced and get inspiration for your next journey</p>
+            <p>
+                <a th:if="${session.user==null}" href="signin" class="btn btn-primary my-2" id="signin">Sign in to share your journey</a>
+                <a th:if="${session.user==null}" href="registerUser" class="btn btn-primary my-2">Register new user</a>
+                <a href="/journey/" class="btn btn-primary my-2">See all travel stories</a>
+            </p>
+        </div>
+    </section>
+
+
     <section id="map" class="jumbotron text-center">
         <div class="container">
-
-
-            <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
-            </script>
-
 
             <h1 class="jumbotron-heading">Welcome to Travello!</h1>
             <p class="lead text-muted">Tell others about what you've experienced and get inspiration for your next
@@ -77,8 +89,43 @@
                 <a href="signin" class="btn btn-primary my-2" id="signin">Sign in to share your journey</a>
                 <a href="registerUser.html" class="btn btn-secondary my-2">Register new user</a>
             </p>
+
+            <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+            </script>
+
+
+
         </div>
     </section>
+
+
+    <div class="album py-5" id="album">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-4" th:each="journey : ${journeys}">
+                    <div class="card mb-4 box-shadow">
+                        <!--<img class="card-img-top" src="https://picsum.photos/200/125/?image=1048" alt="Card image cap">-->
+                        <div class="card-body" >
+                            <a class="card-text" th:href="@{journey/{journeyID}/(journeyID=${journey.journeyID})}" th:text="${journey.title}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!--    <h1>Pick a story to learn more and be inspired!</h1>
+    <article th:each="journey : ${journeys}">
+        <header>
+            <h2>
+                <a th:href="@{./{journeyID}/(journeyID=${journey.journeyID})}" th:text="${journey.title}" />
+            </h2>
+        </header>
+    </article>-->
+
+
 
 
 </main>
@@ -92,7 +139,7 @@
 </footer>
 
 
-<div id="latlng" hidden th:each="locationz : ${locations}">
+<div id="latlng"  th:each="locationz : ${locations}">
     <p class="latlngclass" th:href="@{./{locationID}/(locationID=${locationz.locationID})}"
        th:text="'{ &quotlat&quot:'+${locationz.lat}+', '+ '&quotlng&quot:'+${locationz.lng}+'}'"/>
 </div>

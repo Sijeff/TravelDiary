@@ -58,7 +58,8 @@ public class TravelloController {
 
     @GetMapping("index2")
     public ModelAndView gotoindex2() {
-        return new ModelAndView("index2").addObject("locations", travelloRepository.getLocations());
+        return new ModelAndView("index2").addObject("locations", travelloRepository.getLocations())
+                .addObject("journeys", travelloRepository.listJourneys());
 //        return new ModelAndView("index2");
 
 //        return new ModelAndView("index");
@@ -70,11 +71,11 @@ public class TravelloController {
     }
 
     @GetMapping("journeyform")
-    public ModelAndView gotoJourneyform(HttpSession session) {
+    public ModelAndView gotoJourneyform(HttpSession session ) {
         if (session.getAttribute("user") != null){
             return new ModelAndView("journeyform");
         }else{
-            return new ModelAndView("signin");
+            return new ModelAndView("redirect:signin");
         }
 
     }
