@@ -8,6 +8,7 @@ div.text-center {
     display: flex;
     -ms-flex-align: center;
     align-items: center;
+    justify-content: center;
     padding-top: 40px;
     padding-bottom: 40px;
     background-color: #FFEBF5;
@@ -46,4 +47,10 @@ div.text-center {
     margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+}
+
+#regForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
