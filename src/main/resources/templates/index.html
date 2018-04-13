@@ -32,26 +32,26 @@
 </head>
 
 <body>
-    <header>
-        <div class="collapse bg-light" id="navbarHeader">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-4 py-4">
-                        <ul class="list-unstyled">
-                            <div th:if="${session.user}">
-                                <a href="logout" class="text-black">Log out </a>
-                            </div>
-                            <div th:if="${session.user==null}">
-                                <li><a href="signin" class="text-black">Sign in</a></li>
-                                <li><a href="registerUser" class="text-black">Register</a></li>
-                            </div>
-                            <li><a href="journeyform" th:if="${session.user}" class="text-black">Share journey</a></li>
-                            <li><a href="contact" class="text-black">Contact</a></li>
-                        </ul>
-                    </div>
+<header>
+    <div class="collapse bg-light" id="navbarHeader">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4 py-4">
+                    <ul class="list-unstyled">
+                        <div th:if="${session.user}">
+                            <a href="logout" class="text-black">Log out </a>
+                        </div>
+                        <div th:if="${session.user==null}">
+                            <li><a href="signin" class="text-black">Sign in</a></li>
+                            <li><a href="registerUser" class="text-black">Register</a></li>
+                        </div>
+                        <li><a href="journeyform" th:if="${session.user}" class="text-black">Share journey</a></li>
+                        <li><a href="contact" class="text-black">Contact</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
+    </div>
     <div class="navbar navbar-light bg-light box-shadow">
         <div class="container d-flex justify-content-between">
             <a href="index" class="navbar-brand d-flex align-items-center">
@@ -60,17 +60,13 @@
                 <strong>Travello</strong>
             </a>
 
-            <!--<form class="form-inline mt-2 mt-md-0">-->
-                <!--<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
-                <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search">Search</button>-->
-            <!--</form>-->
-
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
                     aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
         </div>
-    </header>
+    </div>
+</header>
 
 <main role="main">
 
@@ -78,9 +74,11 @@
         <div class="container">
             <h1 th:if="${session.user==null}" class="jumbotron-heading">Welcome to Travello!</h1>
             <h1 th:if="${session.user}" class="jumbotron-heading" th:text="Welcome +' ' + ${session.user}"></h1>
-            <p class="lead text-muted">Tell others about what you've experienced and get inspiration for your next journey</p>
+            <p class="lead text-muted">Tell others about what you've experienced and get inspiration for your next
+                journey</p>
             <p>
-                <a th:if="${session.user==null}" href="signin" class="btn btn-primary my-2" id="signin">Sign in to share your journey</a>
+                <a th:if="${session.user==null}" href="signin" class="btn btn-primary my-2" id="signin">Sign in to share
+                    your journey</a>
                 <a th:if="${session.user==null}" href="registerUser" class="btn btn-primary my-2">Register new user</a>
                 <a th:if="${session.user}" href="journeyform" class="btn btn-primary my-2">Share your journey</a>
                 <a href="/journey/" class="btn btn-primary my-2">See all travel stories</a>
@@ -104,27 +102,15 @@
                 <div class="col-md-4" th:each="journey : ${journeys}">
                     <div class="card mb-4 box-shadow">
                         <!--<img class="card-img-top" src="https://picsum.photos/200/125/?image=1048" alt="Card image cap">-->
-                        <div class="card-body" >
-                            <a class="card-text" th:href="@{journey/{journeyID}/(journeyID=${journey.journeyID})}" th:text="${journey.title}" />
+                        <div class="card-body">
+                            <a class="card-text" th:href="@{journey/{journeyID}/(journeyID=${journey.journeyID})}"
+                               th:text="${journey.title}"/>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-
-<!--    <h1>Pick a story to learn more and be inspired!</h1>
-    <article th:each="journey : ${journeys}">
-        <header>
-            <h2>
-                <a th:href="@{./{journeyID}/(journeyID=${journey.journeyID})}" th:text="${journey.title}" />
-            </h2>
-        </header>
-    </article>-->
-
-
-
 
 </main>
 
@@ -137,7 +123,7 @@
 </footer>
 
 
-<div id="latlng"  th:each="locationz : ${locations}">
+<div id="latlng" th:each="locationz : ${locations}">
     <p hidden class="latlngclass" th:href="@{./{locationID}/(locationID=${locationz.locationID})}"
        th:text="'{ &quotlat&quot:'+${locationz.lat}+', '+ '&quotlng&quot:'+${locationz.lng}+'}'"/>
 </div>
@@ -155,6 +141,7 @@
             // console.log(latlngarray[i]);
         }
     }
+
     function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 3,
